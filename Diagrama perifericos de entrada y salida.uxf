@@ -1,0 +1,5 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLUseCase</id><coordinates><x>510</x><y>440</y><w>120</w><h>120</h></coordinates><panel_attributes>Controlador</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>490</y><w>200</w><h>30</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;10;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>490</y><w>200</w><h>30</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;10;180;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>240</x><y>450</y><w>100</w><h>100</h></coordinates><panel_attributes>
+
+Teclado</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>800</x><y>450</y><w>100</w><h>100</h></coordinates><panel_attributes>
+
+Pantalla</panel_attributes><additional_attributes></additional_attributes></element></diagram>
