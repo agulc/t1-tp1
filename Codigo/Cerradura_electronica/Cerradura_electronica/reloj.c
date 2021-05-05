@@ -2,11 +2,11 @@
 el modulo actualiza una mascara de reloj (masc_reloj) que es recivida como parametro mediante un puntero, para luego ser mostrada
 en pantalla por la MEF funciones*/
 
-volatile char contador_interrupciones = 0;
-volatile char estado_MEF = 1;
-char un_segundo = 10; //Suponer que 1int = 100ms
+volatile unsigned char contador_interrupciones = 0;
+volatile unsigned char estado_MEF = 1;
+unsigned char un_segundo = 10; //Suponer que 1int = 100ms
 
-int MEF_reloj(char *masc_hora) //formato: char masc_hora[] = {0,0,0,0,0,0};
+int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
 {
 
     switch (estado_MEF)
