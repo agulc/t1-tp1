@@ -1,5 +1,3 @@
-
-//char masc_hora[] = {0,0,0,0,0,0};
 /*El siguiente modulo espera una determinada cantidad de interrupciones de reloj. Cuando sucede dicha cantidad de interrupciones,
 el modulo actualiza una mascara de reloj (masc_reloj) que es recivida como parametro mediante un puntero, para luego ser mostrada
 en pantalla por la MEF funciones*/
@@ -8,9 +6,7 @@ volatile char contador_interrupciones = 0;
 volatile char estado_MEF = 1;
 char un_segundo = 10; //Suponer que 1int = 100ms
 
-
-
-int MEF_reloj (char *masc_hora)
+int MEF_reloj(char *masc_hora) //formato: char masc_hora[] = {0,0,0,0,0,0};
 {
 
     switch (estado_MEF)
@@ -27,7 +23,7 @@ int MEF_reloj (char *masc_hora)
         }
 
         break;
-    
+
     case 2: //Incrementar HH:MM:SS
 
         estado_MEF = 3;
@@ -69,9 +65,9 @@ int MEF_reloj (char *masc_hora)
                 }
             }
         }
-        
+
         break;
-        
+
     default:
         break;
     }
