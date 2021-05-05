@@ -4,7 +4,13 @@ en pantalla por la MEF funciones*/
 
 volatile unsigned char contador_interrupciones = 0;
 volatile unsigned char estado_MEF = 1;
-unsigned char un_segundo = 10; //Suponer que 1int = 100ms
+unsigned short un_segundo = 10; //Suponer que 1int = 100ms
+
+void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
+{
+    un_segundo = (unsigned short) 1000/intervalo_interrupcion;   
+}
+
 
 int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
 {
