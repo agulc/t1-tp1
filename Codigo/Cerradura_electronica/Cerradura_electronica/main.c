@@ -23,6 +23,62 @@ uint8_t get_entrada()
 {
 	return (puerto_lectura|0xF0);
 }
+
+uint8_t teclado1(uint8_t lectura)
+{
+	uint8_t key=0;
+	switch (lectura)
+	{
+		case 0b01110111:key='7';break;
+		case 0b01111011:key='8';break;
+		case 0b01111101:key='9';break;
+		case 0b01111110:key='/';break;
+		
+		case 0b10110111:key='4';break;
+		case 0b10111011:key='5';;break;
+		case 0b10111101:key='6';break;
+		case 0b10111110:key='*';break;
+		
+		case 0b11010111:key='1';break;
+		case 0b11011011:key='2';break;
+		case 0b11011101:key='3';break;
+		case 0b11011110:key='-';break;
+		
+		case 0b11100111:key='p';break;
+		case 0b11101011:key='0';break;
+		case 0b11101101:key='=';break;
+		case 0b11101110:key='+';break;
+	}
+	return key;
+	
+}
+uint8_t teclado2(uint8_t lectura)
+{
+	uint8_t key=0;
+	switch (lectura)
+	{
+		case 0b01110111:key='1';break;
+		case 0b01111011:key='2';break;
+		case 0b01111101:key='3';break;
+		case 0b01111110:key='A';break;
+		
+		case 0b10110111:key='4';break;
+		case 0b10111011:key='5';;break;
+		case 0b10111101:key='6';break;
+		case 0b10111110:key='B';break;
+		
+		case 0b11010111:key='7';break;
+		case 0b11011011:key='8';break;
+		case 0b11011101:key='9';break;
+		case 0b11011110:key='C';break;
+		
+		case 0b11100111:key='*';break;
+		case 0b11101011:key='0';break;
+		case 0b11101101:key='#';break;
+		case 0b11101110:key='D';break;
+	}
+	return key;
+}
 uint8_t KEYPAD_scan(uint8_t *key)
 {
 	DDR=0xF0;
@@ -39,28 +95,8 @@ uint8_t KEYPAD_scan(uint8_t *key)
 		if(!(get_entrada()==0xFF))
 		{
 			lectura=puerto_lectura;
-			switch (lectura)
-			{
-				case 0b01110111:*key='7';break;
-				case 0b01111011:*key='8';break;
-				case 0b01111101:*key='9';break;
-				case 0b01111110:*key='/';break;
-				
-				case 0b10110111:*key='4';break;
-				case 0b10111011:*key='5';;break;
-				case 0b10111101:*key='6';break;
-				case 0b10111110:*key='*';break;
-				
-				case 0b11010111:*key='1';break;
-				case 0b11011011:*key='2';break;
-				case 0b11011101:*key='3';break;
-				case 0b11011110:*key='-';break;
-				
-				case 0b11100111:*key='p';break;
-				case 0b11101011:*key='0';break;
-				case 0b11101101:*key='=';break;
-				case 0b11101110:*key='+';break;
-			}
+			//*key=teclado1(lectura);
+			*key=teclado2(lectura);	
 			return 1;
 		}
 		//se realiza el corrimiento de los bits del puerto de salida, para probar la siguiente fila
