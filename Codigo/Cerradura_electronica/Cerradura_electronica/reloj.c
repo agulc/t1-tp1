@@ -8,7 +8,12 @@ unsigned short un_segundo = 10; //Suponer que 1int = 100ms
 
 void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
 {
-    un_segundo = (unsigned short) 1000/intervalo_interrupcion;   
+    un_segundo = (unsigned short) 1000/intervalo_interrupcion;
+    
+    if (!un_segundo)
+    {
+        un_segundo  =  1;
+    }   
 }
 
 
@@ -23,7 +28,7 @@ int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {
         estado_MEF = 1;
         contador_interrupciones++;
 
-        if (un_segundo == contador_interrupciones)
+        if (un_segundo <= contador_interrupciones)
         {
             contador_interrupciones = 0;
             estado_MEF = 2;
