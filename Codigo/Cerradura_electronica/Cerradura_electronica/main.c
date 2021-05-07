@@ -71,8 +71,7 @@ uint8_t KEYPAD_scan(uint8_t *key)
 
 uint8_t KEYPAD_Update (uint8_t *pkey)
 {
-	static uint8_t Old_key;
-	uint8_t Key, Last_valid_key=0xFF; // no hay tecla presionada
+	static uint8_t Old_key,Key, Last_valid_key=0xFF; // no hay tecla presionada
 	if(!KEYPAD_scan(&Key)) {
 		Old_key=0xFF; // no hay tecla presionada
 		Last_valid_key=0xFF;
@@ -98,10 +97,10 @@ int main(void)
 	{
 		uint8_t tecla=0;
 		//programa de testeo del KEYPAD_scan
-		if(KEYPAD_scan(&tecla)){
+		if(KEYPAD_Update(&tecla)){
 			LCDsendChar(tecla);
 		}
-		_delay_ms(100);
+		_delay_ms(10);
 	}
 	return 0;
 
