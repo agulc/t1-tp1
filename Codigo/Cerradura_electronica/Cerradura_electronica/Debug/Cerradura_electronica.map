@@ -22,6 +22,8 @@ Discarded input sections
  .text.LCDhome  0x00000000        0x8 lcd.o
  .text.LCDstring
                 0x00000000       0x36 lcd.o
+ .text.CopyStringtoLCD
+                0x00000000       0x3c lcd.o
  .text.LCDshiftLeft
                 0x00000000       0x1e lcd.o
  .text.LCDshiftRight
@@ -47,6 +49,8 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .text.muestreoInicial
+                0x00000000       0x44 main.o
  .text          0x00000000        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
  .data          0x00000000        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
  .bss           0x00000000        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
@@ -255,7 +259,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x2e2
+.text           0x00000000      0x2fc
  *(.vectors)
  .vectors       0x00000000       0x68 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -344,32 +348,29 @@ END GROUP
                 0x000000d6                . = ALIGN (0x2)
  *(.text.*)
  .text.LCDsendChar
-                0x000000d6       0x46 lcd.o
+                0x000000d6       0x42 lcd.o
                 0x000000d6                LCDsendChar
  .text.LCDsendCommand
-                0x0000011c       0x3e lcd.o
-                0x0000011c                LCDsendCommand
+                0x00000118       0x4a lcd.o
+                0x00000118                LCDsendCommand
  .text.LCDGotoXY
-                0x0000015a       0x1e lcd.o
-                0x0000015a                LCDGotoXY
- .text.CopyStringtoLCD
-                0x00000178       0x3c lcd.o
-                0x00000178                CopyStringtoLCD
+                0x00000162       0x1e lcd.o
+                0x00000162                LCDGotoXY
  .text.LCDdefinechar
-                0x000001b4       0x44 lcd.o
-                0x000001b4                LCDdefinechar
- .text.LCDinit  0x000001f8       0x90 lcd.o
-                0x000001f8                LCDinit
- .text.muestreoInicial
-                0x00000288       0x44 main.o
-                0x00000288                muestreoInicial
- .text.main     0x000002cc       0x12 main.o
-                0x000002cc                main
-                0x000002de                . = ALIGN (0x2)
+                0x00000180       0x44 lcd.o
+                0x00000180                LCDdefinechar
+ .text.LCDinit  0x000001c4       0xac lcd.o
+                0x000001c4                LCDinit
+ .text.mostrarString
+                0x00000270       0x46 main.o
+                0x00000270                mostrarString
+ .text.main     0x000002b6       0x42 main.o
+                0x000002b6                main
+                0x000002f8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000002de        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000002de                _exit
-                0x000002de                exit
+ .fini9         0x000002f8        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000002f8                _exit
+                0x000002f8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -388,11 +389,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000002de        0x4 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000002f8        0x4 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000002e2                _etext = .
+                0x000002fc                _etext = .
 
-.data           0x00800100        0x8 load address 0x000002e2
+.data           0x00800100        0x8 load address 0x000002fc
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -411,8 +412,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                PROVIDE (__bss_end, .)
-                0x000002e2                __data_load_start = LOADADDR (.data)
-                0x000002ea                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000002fc                __data_load_start = LOADADDR (.data)
+                0x00000304                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800108        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -484,51 +485,51 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xe0
+.debug_aranges  0x00000000       0xe8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0xb8 lcd.o
  .debug_aranges
-                0x000000b8       0x28 main.o
+                0x000000b8       0x30 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xfe1
+.debug_info     0x00000000     0x12c6
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x8b1 lcd.o
- .debug_info    0x00000ea5      0x13c main.o
+ .debug_info    0x000005f4      0xad0 lcd.o
+ .debug_info    0x000010c4      0x202 main.o
 
-.debug_abbrev   0x00000000      0x845
+.debug_abbrev   0x00000000      0x8fe
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2      0x1d1 lcd.o
- .debug_abbrev  0x00000773       0xd2 main.o
+ .debug_abbrev  0x000005a2      0x233 lcd.o
+ .debug_abbrev  0x000007d5      0x129 main.o
 
-.debug_line     0x00000000      0x71c
+.debug_line     0x00000000      0x7f4
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000134      0x522 lcd.o
- .debug_line    0x00000656       0xc6 main.o
+ .debug_line    0x00000134      0x5be lcd.o
+ .debug_line    0x000006f2      0x102 main.o
 
-.debug_frame    0x00000000      0x27c
+.debug_frame    0x00000000      0x2ac
  *(.debug_frame)
- .debug_frame   0x00000000      0x238 lcd.o
- .debug_frame   0x00000238       0x44 main.o
+ .debug_frame   0x00000000      0x228 lcd.o
+ .debug_frame   0x00000228       0x84 main.o
 
-.debug_str      0x00000000      0x501
+.debug_str      0x00000000      0x55f
  *(.debug_str)
  .debug_str     0x00000000      0x208 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x2d1 lcd.o
-                                0x31a (size before relaxing)
- .debug_str     0x000004d9       0x28 main.o
-                                0x1bf (size before relaxing)
+ .debug_str     0x00000208      0x317 lcd.o
+                                0x360 (size before relaxing)
+ .debug_str     0x0000051f       0x40 main.o
+                                0x1e3 (size before relaxing)
 
-.debug_loc      0x00000000      0xb19
+.debug_loc      0x00000000     0x1093
  *(.debug_loc)
- .debug_loc     0x00000000      0xad2 lcd.o
- .debug_loc     0x00000ad2       0x47 main.o
+ .debug_loc     0x00000000      0xe94 lcd.o
+ .debug_loc     0x00000e94      0x1ff main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -548,10 +549,10 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xd8
+.debug_ranges   0x00000000       0xe0
  *(.debug_ranges)
  .debug_ranges  0x00000000       0xc0 lcd.o
- .debug_ranges  0x000000c0       0x18 main.o
+ .debug_ranges  0x000000c0       0x20 main.o
 
 .debug_macro
  *(.debug_macro)
