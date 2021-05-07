@@ -24,6 +24,7 @@ uint8_t get_entrada()
 	return (puerto_lectura|0xF0);
 }
 
+//teclado por defecto de proteus
 uint8_t teclado1(uint8_t lectura)
 {
 	uint8_t key=0;
@@ -52,6 +53,7 @@ uint8_t teclado1(uint8_t lectura)
 	return key;
 	
 }
+//teclado modificado para el proyecto
 uint8_t teclado2(uint8_t lectura)
 {
 	uint8_t key=0;
