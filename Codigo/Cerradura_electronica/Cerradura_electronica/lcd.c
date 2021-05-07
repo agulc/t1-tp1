@@ -2,6 +2,7 @@
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#include <util/delay.h>
 
 const uint8_t LcdCustomChar[] PROGMEM=//define 8 custom LCD chars
 {
