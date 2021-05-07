@@ -33,7 +33,7 @@ int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {
 
     case 2: //Incrementar HH:MM:SS
 
-        estado_MEF = 3;
+        estado_MEF = 1;
         contador_interrupciones++;
 
         masc_hora[5]++;
