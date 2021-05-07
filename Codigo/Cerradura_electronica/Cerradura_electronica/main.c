@@ -25,24 +25,20 @@ uint8_t get_entrada()
 }
 uint8_t KEYPAD_scan(uint8_t *key)
 {
-	LCDsendChar('|');
 	DDR=0xF0;
 	puerto=0x0F;
 	actualizar_salida(0);
 
-
-	_delay_ms(100);
 	if(get_entrada()==0xFF){return 0;}
-	_delay_ms(100);
 	actualizar_salida(0b00001110);
 	uint8_t lectura=0;
 	while(1)
 	{
-		_delay_ms(100);
+		//_delay_ms(100);
 		//si en la entrada solo hay 1111 significa que es la fila incorrecta, por lo que se niega la condicion y se continua con la siguiente fila
-		if(~get_entrada())
+		if(!(get_entrada()==0xFF))
 		{
-			lectura=(get_salida()<<4) | (get_entrada()&0x0F);
+			lectura=puerto_lectura;
 			switch (lectura)
 			{
 				case 0b01110111:*key='7';break;
@@ -64,11 +60,11 @@ uint8_t KEYPAD_scan(uint8_t *key)
 				case 0b11101011:*key='0';break;
 				case 0b11101101:*key='=';break;
 				case 0b11101110:*key='+';break;
-				default: *key='D';
 			}
 			return 1;
 		}
-		actualizar_salida(get_salida()<<1);
+		//se realiza el corrimiento de los bits del puerto de salida, para probar la siguiente fila
+		actualizar_salida((get_salida()<<1)+1);
 	}
 	return 0;
 }
