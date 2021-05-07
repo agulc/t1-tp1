@@ -25,6 +25,7 @@ int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {
 
         if (un_segundo == contador_interrupciones)
         {
+            contador_interrupciones = 0;
             estado_MEF = 2;
         }
 
