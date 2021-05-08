@@ -1,6 +1,9 @@
 /*Este programa es la maquina de estados principal que controla la parte interactiva de la cerradura.
 Para mas información, ver la documentación del proyecto*/
 
+#include "controladorLCD.c"
+
+void refrescar_mascara_reloj(unsigned char *reloj);
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
 unsigned char comparar_claves();
@@ -9,21 +12,27 @@ uint8_t clave_mascara[] = {'x','x','x','x'} ;
 uint8_t clave_ingresada[] = clave_mascara ;
 uint8_t clave_nueva[] = clave_mascara ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
+uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
+
 char cursor_clave = 0;
 char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]) - 1;
 
 
-void mef_funciones(unsigned char *masc_reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
+
+void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
 {
 
 }
 
-unsigned char pantalla_principal(uint8_t tecla)
+unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 {
     // Mostrar Hora y "CERRADO", se espera una entrada por teclado. La hora es obtenida de una mascara comandada por la MEF Reloj.
     unsigned char proximo_estado = 1;
 
     //seteo lo que se tenga que mostrar en el display
+	refrescar_mascara_reloj(reloj);
+	mostrarArriba(reloj);
+	mostrarAbajo("     CERRADO    ");
 
     switch (tecla)
     {
@@ -107,4 +116,14 @@ unsigned char comparar_claves()
 	clave_ingresada = clave_mascara;
 	
 	return comparacion;
+}
+
+void refrescar_mascara_reloj(unsigned char *reloj)
+{
+	mascara_reloj[4] = reloj[0] + '0';
+	mascara_reloj[5] = reloj[1] + '0';
+	mascara_reloj[7] = reloj[2] + '0';
+	mascara_reloj[8] = reloj[3] + '0';
+	mascara_reloj[10] = reloj[4] + '0';
+	mascara_reloj[11] = reloj[5] + '0';
 }
