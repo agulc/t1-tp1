@@ -2,7 +2,6 @@
 el modulo actualiza una mascara de reloj (masc_reloj) que es recivida como parametro mediante un puntero, para luego ser mostrada
 en pantalla por la MEF funciones*/
 
-volatile unsigned char contador_interrupciones = 0;
 volatile unsigned char estado_MEF = 1;
 unsigned short un_segundo = 10; //Suponer que 1int = 100ms
 
@@ -19,7 +18,7 @@ void set_temporizador(unsigned short intervalo_interrupcion) //establece la cant
 
 void MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
 {
-
+	static unsigned char contador_interrupciones = 0;
     switch (estado_MEF)
     {
 

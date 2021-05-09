@@ -4,7 +4,7 @@ Para mas información, ver la documentación del proyecto*/
 #include "controlador_lcd.h"
 #include "lcd.h"
 
-unsigned char pantalla_principal(uint8_t tecla);
+unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
 unsigned char comparar_claves();
 unsigned char abierto();
@@ -12,12 +12,16 @@ unsigned char denegado();
 unsigned char cambiar_clave_clave_actual(uint8_t tecla);
 unsigned char cambiar_clave_nueva_clave(uint8_t tecla);
 unsigned char cambiar_clave_fin();
+unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla);
+unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla);
+unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla);
+
 void refrescar_mascara_reloj(unsigned char *reloj);
 void set_temporizador(unsigned short intervalo_interrupcion);
 void refrescar_cursor_clave();
 void set_temporizador(unsigned short intervalo_interrupcion);
 
-unsigned short un_segundo = 10; //Suponer que 1int = 100ms
+
 unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
 unsigned short tres_segundos = 30; //Suponer que 1int = 100ms
 unsigned short contador_interrupciones = 0;
@@ -29,7 +33,7 @@ uint8_t mascara_reloj_conjelada[] = {' ',' ',' ',' ','h','h',':','m','m',':','s'
 
 char cursor_clave = 0;
 char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]);
-volatile unsigned char estado = 1;
+unsigned char estado = 1;
 
 
 void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
@@ -37,7 +41,7 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
 	switch (estado)
 	{
 		case 1:
-			estado = pantalla_principal(tecla,reloj);
+			estado = pantalla_principal(tecla,&reloj);
 			break;
 		case 2:
 			estado = ingresar_clave_entrada(tecla);
@@ -58,16 +62,16 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
 			estado = cambiar_clave_fin();
 			break;
 		case 8:
-			estado = modificar_hora(reloj,tecla);
+			estado = modificar_hora(&reloj,tecla);
 			break;
 		case 9:
-			estado = modificar_minutos(reloj,tecla);
+			estado = modificar_minutos(&reloj,tecla);
 			break;
 		case 10:
-			estado = modificar_segundos(reloj,tecla);
+			estado = modificar_segundos(&reloj,tecla);
 			break;
 		default:
-			estado = pantalla_principal(tecla,reloj);
+			estado = pantalla_principal(tecla,&reloj);
 			break;		
 	}
 }
@@ -83,7 +87,16 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 
     switch (tecla)
     {
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
 			proximo_estado = 2; //Ingresar clave entrada
@@ -91,7 +104,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'A':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
-			LCDGotoXY(4,0)
+			LCDGotoXY(4,0);
 			LCDcursorOnBlink();
 			proximo_estado = 8; //Modificar hora
 
@@ -99,14 +112,14 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'B':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
-			LCDGotoXY(7,0)
+			LCDGotoXY(7,0);
 			LCDcursorOnBlink();
 			proximo_estado = 9; //Modificar minutos
 			break;
 		
 		case 'C':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
-			LCDGotoXY(10,0)
+			LCDGotoXY(10,0);
 			LCDcursorOnBlink();
 			proximo_estado = 10; //Modificar segundos
 			break;
@@ -133,7 +146,16 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
 			
@@ -204,7 +226,16 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 	
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
 			
@@ -245,7 +276,16 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 
 			if (cursor_clave < tam_clave)
 			{
@@ -307,7 +347,16 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 	
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 			if (cursor_hora == 4)
 			{
 				if (tecla <= '2')
@@ -362,7 +411,16 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 	
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 
 			if (cursor_minutos == 7)
 			{
@@ -406,7 +464,16 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 	
 	switch (tecla)
 	{
-		case '0','1','2','3','4','5','6','7','8','9':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
 		
 			if (cursor_segundos == 10)
 			{
@@ -498,11 +565,11 @@ void refrescar_cursor_clave()
 	
 	case 3:
 		mostrarAbajo("      ***      ");
-		break
+		break;
 	
 	case 4:
 		mostrarAbajo("      ****     ");
-		break
+		break;
 	
 	default:
 		mostrarAbajo("      OOB      ");
@@ -521,7 +588,6 @@ void copiar_arreglo(uint8_t *origen, uint8_t *destino, int tam)
 
 void set_temporizador_funciones(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deseada.
 {
-    un_segundo = (unsigned short) 1000/intervalo_interrupcion;
     dos_segundos = (unsigned short) 2000/intervalo_interrupcion;
 	tres_segundos = (unsigned short) 3000/intervalo_interrupcion;
 }

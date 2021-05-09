@@ -10,6 +10,7 @@
 #include "lcd.h"
 #include "key.h"
 #include "controlador_lcd.h"
+#include "funciones.h"
 #define F_CPU 8000000L
 
 int main(void)
@@ -23,6 +24,7 @@ int main(void)
       MEF_reloj(masc_hora);
       tecla = 0;
       KEYPAD_Update(&tecla);
-      _delay_ms(10);
+	  mef_funciones(masc_hora,tecla);
+      _delay_ms(10);  
     }
 }
