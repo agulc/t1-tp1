@@ -1,7 +1,7 @@
 /*Este programa es la maquina de estados principal que controla la parte interactiva de la cerradura.
 Para mas información, ver la documentación del proyecto*/
 
-#include "controladorLCD.c"
+#include "controlador_lcd.h"
 
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
@@ -121,6 +121,7 @@ unsigned char abierto()
 	if (contador_interrupciones > tres_segundos)
 	{
 		proximo_estado = 1;
+		contador_interrupciones = 0;
 	}
 
 	return proximo_estado;
@@ -138,6 +139,7 @@ unsigned char denegado()
 	if (contador_interrupciones > dos_segundos)
 	{
 		proximo_estado = 1;
+		contador_interrupciones = 0;
 	}
 
 	return proximo_estado;	
@@ -187,7 +189,7 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 {
 	//Mostrar "Nueva" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
-	unsigned char proximo_estado = ;
+	unsigned char proximo_estado = 6;
 
 	//seteo lo que se tenga que mostrar en el display
 	mostrarArriba("Clave actual   ");
@@ -227,6 +229,24 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 	}
 	
 	return proximo_estado;
+}
+
+unsigned char cambiar_clave_fin()
+{
+	unsigned char proximo_estado = 7;
+
+	contador_interrupciones++;
+	mostrarArriba("   Fin ingreso  ");
+	mostrarAbajo("   nueva clave  ");
+
+	if (contador_interrupciones > tres_segundos)
+	{
+		proximo_estado = 1;
+		contador_interrupciones = 0;
+	}
+
+	return proximo_estado;
+	
 }
 
 unsigned char comparar_claves()
