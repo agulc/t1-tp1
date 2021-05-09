@@ -10,6 +10,7 @@ unsigned char abierto();
 unsigned char denegado();
 unsigned char cambiar_clave_clave_actual(uint8_t tecla);
 unsigned char cambiar_clave_nueva_clave(uint8_t tecla);
+unsigned char cambiar_clave_fin();
 void refrescar_mascara_reloj(unsigned char *reloj);
 void set_temporizador(unsigned short intervalo_interrupcion);
 void refrescar_cursor_clave();
@@ -23,6 +24,7 @@ uint8_t clave_mascara[] = {'x','x','x','x'} ;
 uint8_t clave_ingresada[] = clave_mascara ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
 uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
+uint8_t mascara_reloj_conjelada[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
 
 char cursor_clave = 0;
 char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]) - 1;
@@ -52,6 +54,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			break;
 		
 		case 'A':
+			mascara_reloj_conjelada = mascara
 			proximo_estado = 8; //Modificar hora
 			break;
 		
@@ -174,7 +177,7 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 			break;
 		
 		case '#':
-			clave_ingresada = clave_mascara;
+			copiar_arreglo(clave_mascara, clave_ingresada, tam_clave);
 			cursor_clave = 0;
 			proximo_estado = 1;
 			break;
@@ -211,15 +214,15 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 
 			if (cursor_clave > tam_clave)
 			{
-				clave_actual = clave_ingresada;
-				clave_ingresada = clave_mascara;
+				copiar_arreglo(clave_ingresada, clave_actual, tam_clave);
+				copiar_arreglo(clave_mascara, clave_ingresada, tam_clave);
 				cursor_clave = 0;
 				proximo_estado = 7;
 			}
 			break;
 		
 		case '#':
-			clave_ingresada = clave_mascara;
+			copiar_arreglo(clave_mascara, clave_ingresada, tam_clave);
 			cursor_clave = 0;
 			proximo_estado = 1;
 			break;
@@ -236,8 +239,8 @@ unsigned char cambiar_clave_fin()
 	unsigned char proximo_estado = 7;
 
 	contador_interrupciones++;
-	mostrarArriba("   Fin ingreso  ");
-	mostrarAbajo("   nueva clave  ");
+	mostrarArriba("  Fin ingreso  ");
+	mostrarAbajo("  nueva clave  ");
 
 	if (contador_interrupciones > tres_segundos)
 	{
@@ -273,8 +276,8 @@ void refrescar_mascara_reloj(unsigned char *reloj)
 	mascara_reloj[5] = reloj[1] + '0';
 	mascara_reloj[7] = reloj[2] + '0';
 	mascara_reloj[8] = reloj[3] + '0';
-	mascara_reloj[10] = reloj[4] + '0';
-	mascara_reloj[11] = reloj[5] + '0';
+	mascara_reloj[10] =  reloj[4] + '0';
+	mascara_reloj[11] =  reloj[5] + '0';
 
 	mostrarArriba(reloj);
 }
@@ -305,6 +308,15 @@ void refrescar_cursor_clave()
 	
 	default:
 		break;
+	}
+}
+
+void copiar_arreglo(uint8_t *origen, uint8_t *destino, int tam)
+{
+	int i = 0;
+	for (i = 0; i < tam; i++)
+	{
+		destino[i] = origen[i];
 	}
 }
 
