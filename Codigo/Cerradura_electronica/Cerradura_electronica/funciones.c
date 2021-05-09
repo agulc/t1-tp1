@@ -6,6 +6,9 @@ Para mas información, ver la documentación del proyecto*/
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
 unsigned char comparar_claves();
+unsigned char abierto();
+unsigned char denegado();
+unsigned char cambiar_clave_clave_actual(uint8_t tecla);
 void refrescar_mascara_reloj(unsigned char *reloj);
 void set_temporizador(unsigned short intervalo_interrupcion);
 void refrescar_cursor_clave();
@@ -140,6 +143,47 @@ unsigned char denegado()
 	return proximo_estado;	
 }
 
+unsigned char cambiar_clave_clave_actual(uint8_t tecla)
+{
+	//Mostrar "Ingresar clave" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
+	unsigned char proximo_estado = 5;
+
+	//seteo lo que se tenga que mostrar en el display
+	mostrarArriba("Clave actual   ");
+	refrescar_cursor_clave();
+
+	switch (tecla)
+	{
+		case '0','1','2','3','4','5','6','7','8','9':
+			clave_ingresada[cursor_clave] = tecla;
+			cursor_clave++;
+			
+			if (cursor_clave > tam_clave)
+			{
+				cursor_clave = 0;
+				proximo_estado = 4; //Denegado
+				
+				if (comparar_claves())
+				{
+					proximo_estado = 6; //Nueva Clave
+				}
+			}
+			
+			break;
+		
+		case '#':
+			clave_ingresada = clave_mascara;
+			cursor_clave = 0;
+			proximo_estado = 1;
+			break;
+		
+		default:
+			break;
+	}
+	
+	return proximo_estado;
+}
+
 unsigned char comparar_claves()
 {
 	char comparacion = 1;
@@ -191,7 +235,7 @@ void refrescar_cursor_clave()
 	}
 }
 
-void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
+void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deseada.
 {
     un_segundo = (unsigned short) 1000/intervalo_interrupcion;
     dos_segundos = (unsigned short) 2000/intervalo_interrupcion;
