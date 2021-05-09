@@ -22,7 +22,7 @@ unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
 unsigned short tres_segundos = 30; //Suponer que 1int = 100ms
 unsigned short contador_interrupciones = 0;
 uint8_t clave_mascara[] = {'x','x','x','x'} ;
-uint8_t clave_ingresada[] = clave_mascara ;
+uint8_t clave_ingresada[] = {'x','x','x','x'} ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
 uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
 uint8_t mascara_reloj_conjelada[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
@@ -34,7 +34,42 @@ unsigned char estado;
 
 void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
 {
-
+	switch (estado)
+	{
+		case 1:
+			pantalla_principal(tecla,reloj);
+			break;
+		case 2:
+			ingresar_clave_entrada(tecla);
+			break;
+		case 3:
+			abierto();
+			break;
+		case 4:
+			denegado();
+			break;
+		case 5:
+			cambiar_clave_clave_actual(tecla);
+			break;
+		case 6:
+			cambiar_clave_nueva_clave(tecla);
+			break;
+		case 7:
+			cambiar_clave_fin();
+			break;
+		case 8:
+			modificar_hora(reloj,tecla);
+			break;
+		case 9:
+			modificar_minutos(reloj,tecla);
+			break;
+		case 10:
+			modificar_segundos(reloj,tecla);
+			break;
+		default:
+			pantalla_principal(tecla,reloj);
+			break;		
+	}
 }
 
 unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
@@ -414,8 +449,7 @@ void modificar_reloj(unsigned char *reloj)
 	reloj[3] = mascara_reloj_conjelada[8] - '0';
 	reloj[4] = mascara_reloj_conjelada[10] - '0';
 	reloj[5] = mascara_reloj_conjelada[11] - '0';
-1
-
+}
 
 void refrescar_cursor_clave()
 {
