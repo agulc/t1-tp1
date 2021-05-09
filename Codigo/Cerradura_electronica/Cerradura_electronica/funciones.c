@@ -496,7 +496,7 @@ void copiar_arreglo(uint8_t *origen, uint8_t *destino, int tam)
 	}
 }
 
-void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deseada.
+void set_temporizador_funciones(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deseada.
 {
     un_segundo = (unsigned short) 1000/intervalo_interrupcion;
     dos_segundos = (unsigned short) 2000/intervalo_interrupcion;
