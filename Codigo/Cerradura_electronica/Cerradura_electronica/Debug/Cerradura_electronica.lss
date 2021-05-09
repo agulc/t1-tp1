@@ -3,31 +3,31 @@ Cerradura_electronica.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000138  00800100  00000cf0  00000d84  2**0
+  0 .data         00000138  00800100  00000d2a  00000dbe  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000cf0  00000000  00000000  00000094  2**1
+  1 .text         00000d2a  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000007  00800238  00800238  00000ebc  2**0
+  2 .bss          00000008  00800238  00800238  00000ef6  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000ebc  2**0
+  3 .comment      00000030  00000000  00000000  00000ef6  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000eec  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000f28  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000220  00000000  00000000  00000f2c  2**0
+  5 .debug_aranges 00000228  00000000  00000000  00000f68  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00002497  00000000  00000000  0000114c  2**0
+  6 .debug_info   000024c4  00000000  00000000  00001190  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000d97  00000000  00000000  000035e3  2**0
+  7 .debug_abbrev 00000dc7  00000000  00000000  00003654  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000013a4  00000000  00000000  0000437a  2**0
+  8 .debug_line   000013de  00000000  00000000  0000441b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000052c  00000000  00000000  00005720  2**2
+  9 .debug_frame  0000054c  00000000  00000000  000057fc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000008c1  00000000  00000000  00005c4c  2**0
+ 10 .debug_str    000008d2  00000000  00000000  00005d48  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00002273  00000000  00000000  0000650d  2**0
+ 11 .debug_loc    000022af  00000000  00000000  0000661a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000288  00000000  00000000  00008780  2**0
+ 12 .debug_ranges 00000290  00000000  00000000  000088c9  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -47,7 +47,7 @@ Disassembly of section .text:
   2c:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
   30:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
   34:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
-  38:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
+  38:	0c 94 05 06 	jmp	0xc0a	; 0xc0a <__vector_14>
   3c:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
   40:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
   44:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__bad_interrupt>
@@ -208,8 +208,8 @@ Disassembly of section .text:
  1b8:	12 e0       	ldi	r17, 0x02	; 2
  1ba:	a0 e0       	ldi	r26, 0x00	; 0
  1bc:	b1 e0       	ldi	r27, 0x01	; 1
- 1be:	e0 ef       	ldi	r30, 0xF0	; 240
- 1c0:	fc e0       	ldi	r31, 0x0C	; 12
+ 1be:	ea e2       	ldi	r30, 0x2A	; 42
+ 1c0:	fd e0       	ldi	r31, 0x0D	; 13
  1c2:	02 c0       	rjmp	.+4      	; 0x1c8 <__do_copy_data+0x10>
  1c4:	05 90       	lpm	r0, Z+
  1c6:	0d 92       	st	X+, r0
@@ -227,11 +227,11 @@ Disassembly of section .text:
  1d6:	1d 92       	st	X+, r1
 
 000001d8 <.do_clear_bss_start>:
- 1d8:	af 33       	cpi	r26, 0x3F	; 63
+ 1d8:	a0 34       	cpi	r26, 0x40	; 64
  1da:	b2 07       	cpc	r27, r18
  1dc:	e1 f7       	brne	.-8      	; 0x1d6 <.do_clear_bss_loop>
  1de:	0e 94 ce 05 	call	0xb9c	; 0xb9c <main>
- 1e2:	0c 94 76 06 	jmp	0xcec	; 0xcec <_exit>
+ 1e2:	0c 94 93 06 	jmp	0xd26	; 0xd26 <_exit>
 
 000001e6 <__bad_interrupt>:
  1e6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -1627,7 +1627,7 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
  858:	f0 f5       	brcc	.+124    	; 0x8d6 <mef_funciones+0x90>
  85a:	ec 5c       	subi	r30, 0xCC	; 204
  85c:	ff 4f       	sbci	r31, 0xFF	; 255
- 85e:	0c 94 70 06 	jmp	0xce0	; 0xce0 <__tablejump2__>
+ 85e:	0c 94 8d 06 	jmp	0xd1a	; 0xd1a <__tablejump2__>
 	{
 		case 1:
 			estado = pantalla_principal(tecla,reloj);
@@ -1737,7 +1737,7 @@ uint8_t teclado2(uint8_t lectura)
  902:	20 f5       	brcc	.+72     	; 0x94c <__stack+0x4d>
  904:	e2 5c       	subi	r30, 0xC2	; 194
  906:	ff 4f       	sbci	r31, 0xFF	; 255
- 908:	0c 94 70 06 	jmp	0xce0	; 0xce0 <__tablejump2__>
+ 908:	0c 94 8d 06 	jmp	0xd1a	; 0xd1a <__tablejump2__>
 	{
 		case 0b01110111:key='1';break;
  90c:	81 e3       	ldi	r24, 0x31	; 49
@@ -2200,10 +2200,10 @@ void LCDcursorOFF(void)	//turns OFF cursor
  b9a:	08 95       	ret
 
 00000b9c <main>:
-#include "controlador_lcd.h"
 #include "funciones.h"
 #define F_CPU 8000000L
-
+#include "avr/interrupt.h"
+volatile uint8_t flag = 0;
 int main(void)
 {
  b9c:	cf 93       	push	r28
@@ -2216,293 +2216,338 @@ int main(void)
  baa:	de bf       	out	0x3e, r29	; 62
  bac:	0f be       	out	0x3f, r0	; 63
  bae:	cd bf       	out	0x3d, r28	; 61
+	/*se configura las interrupciones por temporizador*/
+	OCR0A = 100;
+ bb0:	84 e6       	ldi	r24, 0x64	; 100
+ bb2:	87 bd       	out	0x27, r24	; 39
+	TCCR0A = 0x02; //se activa modo CTC
+ bb4:	82 e0       	ldi	r24, 0x02	; 2
+ bb6:	84 bd       	out	0x24, r24	; 36
+	TCCR0B = 0x02;
+ bb8:	85 bd       	out	0x25, r24	; 37
+	TIMSK0 = (1<<OCIE0A);
+ bba:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <__TEXT_REGION_LENGTH__+0x7f806e>
+	sei( );	
+ bbe:	78 94       	sei
+	/*se configura las interrupciones por temporizador*/	
+	
     unsigned char masc_hora[] = {0,4,2,0,0,0};
- bb0:	86 e0       	ldi	r24, 0x06	; 6
- bb2:	ea e3       	ldi	r30, 0x3A	; 58
- bb4:	f1 e0       	ldi	r31, 0x01	; 1
- bb6:	de 01       	movw	r26, r28
- bb8:	11 96       	adiw	r26, 0x01	; 1
- bba:	01 90       	ld	r0, Z+
- bbc:	0d 92       	st	X+, r0
- bbe:	8a 95       	dec	r24
- bc0:	e1 f7       	brne	.-8      	; 0xbba <main+0x1e>
+ bc0:	86 e0       	ldi	r24, 0x06	; 6
+ bc2:	ea e3       	ldi	r30, 0x3A	; 58
+ bc4:	f1 e0       	ldi	r31, 0x01	; 1
+ bc6:	de 01       	movw	r26, r28
+ bc8:	11 96       	adiw	r26, 0x01	; 1
+ bca:	01 90       	ld	r0, Z+
+ bcc:	0d 92       	st	X+, r0
+ bce:	8a 95       	dec	r24
+ bd0:	e1 f7       	brne	.-8      	; 0xbca <main+0x2e>
     uint8_t tecla = 0;
- bc2:	1f 82       	std	Y+7, r1	; 0x07
+ bd2:	1f 82       	std	Y+7, r1	; 0x07
     set_temporizador(100);
- bc4:	84 e6       	ldi	r24, 0x64	; 100
- bc6:	90 e0       	ldi	r25, 0x00	; 0
- bc8:	0e 94 f7 05 	call	0xbee	; 0xbee <set_temporizador>
+ bd4:	84 e6       	ldi	r24, 0x64	; 100
+ bd6:	90 e0       	ldi	r25, 0x00	; 0
+ bd8:	0e 94 14 06 	call	0xc28	; 0xc28 <set_temporizador>
 	LCDinit();
- bcc:	0e 94 70 05 	call	0xae0	; 0xae0 <LCDinit>
+ bdc:	0e 94 70 05 	call	0xae0	; 0xae0 <LCDinit>
 
     while (1) 
     {
-      MEF_reloj(masc_hora);
- bd0:	ce 01       	movw	r24, r28
- bd2:	01 96       	adiw	r24, 0x01	; 1
- bd4:	0e 94 0b 06 	call	0xc16	; 0xc16 <MEF_reloj>
-      tecla = 0;
- bd8:	1f 82       	std	Y+7, r1	; 0x07
-      KEYPAD_Update(&tecla);
- bda:	ce 01       	movw	r24, r28
- bdc:	07 96       	adiw	r24, 0x07	; 7
- bde:	0e 94 d3 04 	call	0x9a6	; 0x9a6 <KEYPAD_Update>
-	  mef_funciones(masc_hora,tecla);
- be2:	6f 81       	ldd	r22, Y+7	; 0x07
+		flag = 0;
+ be0:	10 92 3e 02 	sts	0x023E, r1	; 0x80023e <flag>
+		MEF_reloj(masc_hora);
  be4:	ce 01       	movw	r24, r28
  be6:	01 96       	adiw	r24, 0x01	; 1
- be8:	0e 94 23 04 	call	0x846	; 0x846 <mef_funciones>
- bec:	f1 cf       	rjmp	.-30     	; 0xbd0 <main+0x34>
+ be8:	0e 94 28 06 	call	0xc50	; 0xc50 <MEF_reloj>
+		tecla = 0;
+ bec:	1f 82       	std	Y+7, r1	; 0x07
+		KEYPAD_Update(&tecla);
+ bee:	ce 01       	movw	r24, r28
+ bf0:	07 96       	adiw	r24, 0x07	; 7
+ bf2:	0e 94 d3 04 	call	0x9a6	; 0x9a6 <KEYPAD_Update>
+		mef_funciones(masc_hora,tecla);
+ bf6:	6f 81       	ldd	r22, Y+7	; 0x07
+ bf8:	ce 01       	movw	r24, r28
+ bfa:	01 96       	adiw	r24, 0x01	; 1
+ bfc:	0e 94 23 04 	call	0x846	; 0x846 <mef_funciones>
+		// _delay_ms(10);
+		while(!flag){
+ c00:	80 91 3e 02 	lds	r24, 0x023E	; 0x80023e <flag>
+ c04:	88 23       	and	r24, r24
+ c06:	e1 f3       	breq	.-8      	; 0xc00 <main+0x64>
+ c08:	eb cf       	rjmp	.-42     	; 0xbe0 <main+0x44>
 
-00000bee <set_temporizador>:
+00000c0a <__vector_14>:
+		
+		}
+    }
+}
+ISR(TIMER0_COMPA_vect){
+ c0a:	1f 92       	push	r1
+ c0c:	0f 92       	push	r0
+ c0e:	0f b6       	in	r0, 0x3f	; 63
+ c10:	0f 92       	push	r0
+ c12:	11 24       	eor	r1, r1
+ c14:	8f 93       	push	r24
+	flag = 1;
+ c16:	81 e0       	ldi	r24, 0x01	; 1
+ c18:	80 93 3e 02 	sts	0x023E, r24	; 0x80023e <flag>
+}
+ c1c:	8f 91       	pop	r24
+ c1e:	0f 90       	pop	r0
+ c20:	0f be       	out	0x3f, r0	; 63
+ c22:	0f 90       	pop	r0
+ c24:	1f 90       	pop	r1
+ c26:	18 95       	reti
+
+00000c28 <set_temporizador>:
 volatile unsigned char estado_MEF = 1;
 unsigned short un_segundo = 10; //Suponer que 1int = 100ms
 unsigned char contador_interrupciones_reloj = 0;
 
 void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
 {
- bee:	bc 01       	movw	r22, r24
+ c28:	bc 01       	movw	r22, r24
     un_segundo = (unsigned short) 1000/intervalo_interrupcion;
- bf0:	88 ee       	ldi	r24, 0xE8	; 232
- bf2:	93 e0       	ldi	r25, 0x03	; 3
- bf4:	0e 94 5c 06 	call	0xcb8	; 0xcb8 <__udivmodhi4>
+ c2a:	88 ee       	ldi	r24, 0xE8	; 232
+ c2c:	93 e0       	ldi	r25, 0x03	; 3
+ c2e:	0e 94 79 06 	call	0xcf2	; 0xcf2 <__udivmodhi4>
     
     if (!un_segundo)
- bf8:	61 15       	cp	r22, r1
- bfa:	71 05       	cpc	r23, r1
- bfc:	29 f0       	breq	.+10     	; 0xc08 <set_temporizador+0x1a>
+ c32:	61 15       	cp	r22, r1
+ c34:	71 05       	cpc	r23, r1
+ c36:	29 f0       	breq	.+10     	; 0xc42 <set_temporizador+0x1a>
 unsigned short un_segundo = 10; //Suponer que 1int = 100ms
 unsigned char contador_interrupciones_reloj = 0;
 
 void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
 {
     un_segundo = (unsigned short) 1000/intervalo_interrupcion;
- bfe:	70 93 38 01 	sts	0x0138, r23	; 0x800138 <un_segundo+0x1>
- c02:	60 93 37 01 	sts	0x0137, r22	; 0x800137 <un_segundo>
- c06:	08 95       	ret
+ c38:	70 93 38 01 	sts	0x0138, r23	; 0x800138 <un_segundo+0x1>
+ c3c:	60 93 37 01 	sts	0x0137, r22	; 0x800137 <un_segundo>
+ c40:	08 95       	ret
     
     if (!un_segundo)
     {
         un_segundo  =  1;
- c08:	81 e0       	ldi	r24, 0x01	; 1
- c0a:	90 e0       	ldi	r25, 0x00	; 0
- c0c:	90 93 38 01 	sts	0x0138, r25	; 0x800138 <un_segundo+0x1>
- c10:	80 93 37 01 	sts	0x0137, r24	; 0x800137 <un_segundo>
- c14:	08 95       	ret
+ c42:	81 e0       	ldi	r24, 0x01	; 1
+ c44:	90 e0       	ldi	r25, 0x00	; 0
+ c46:	90 93 38 01 	sts	0x0138, r25	; 0x800138 <un_segundo+0x1>
+ c4a:	80 93 37 01 	sts	0x0137, r24	; 0x800137 <un_segundo>
+ c4e:	08 95       	ret
 
-00000c16 <MEF_reloj>:
+00000c50 <MEF_reloj>:
     }   
 }
 
 
 void MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
 {
- c16:	fc 01       	movw	r30, r24
+ c50:	fc 01       	movw	r30, r24
 
     switch (estado_MEF)
- c18:	90 91 39 01 	lds	r25, 0x0139	; 0x800139 <estado_MEF>
- c1c:	91 30       	cpi	r25, 0x01	; 1
- c1e:	19 f0       	breq	.+6      	; 0xc26 <MEF_reloj+0x10>
- c20:	92 30       	cpi	r25, 0x02	; 2
- c22:	b9 f0       	breq	.+46     	; 0xc52 <MEF_reloj+0x3c>
- c24:	08 95       	ret
+ c52:	90 91 39 01 	lds	r25, 0x0139	; 0x800139 <estado_MEF>
+ c56:	91 30       	cpi	r25, 0x01	; 1
+ c58:	19 f0       	breq	.+6      	; 0xc60 <MEF_reloj+0x10>
+ c5a:	92 30       	cpi	r25, 0x02	; 2
+ c5c:	b9 f0       	breq	.+46     	; 0xc8c <MEF_reloj+0x3c>
+ c5e:	08 95       	ret
     {
 
     case 1: //Reloj quieto
 
         estado_MEF = 1;
- c26:	81 e0       	ldi	r24, 0x01	; 1
- c28:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
+ c60:	81 e0       	ldi	r24, 0x01	; 1
+ c62:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
         contador_interrupciones_reloj++;
- c2c:	80 91 3e 02 	lds	r24, 0x023E	; 0x80023e <contador_interrupciones_reloj>
- c30:	8f 5f       	subi	r24, 0xFF	; 255
- c32:	80 93 3e 02 	sts	0x023E, r24	; 0x80023e <contador_interrupciones_reloj>
+ c66:	80 91 3f 02 	lds	r24, 0x023F	; 0x80023f <contador_interrupciones_reloj>
+ c6a:	8f 5f       	subi	r24, 0xFF	; 255
+ c6c:	80 93 3f 02 	sts	0x023F, r24	; 0x80023f <contador_interrupciones_reloj>
 
         if (un_segundo <= contador_interrupciones_reloj)
- c36:	90 e0       	ldi	r25, 0x00	; 0
- c38:	20 91 37 01 	lds	r18, 0x0137	; 0x800137 <un_segundo>
- c3c:	30 91 38 01 	lds	r19, 0x0138	; 0x800138 <un_segundo+0x1>
- c40:	82 17       	cp	r24, r18
- c42:	93 07       	cpc	r25, r19
- c44:	c0 f1       	brcs	.+112    	; 0xcb6 <MEF_reloj+0xa0>
+ c70:	90 e0       	ldi	r25, 0x00	; 0
+ c72:	20 91 37 01 	lds	r18, 0x0137	; 0x800137 <un_segundo>
+ c76:	30 91 38 01 	lds	r19, 0x0138	; 0x800138 <un_segundo+0x1>
+ c7a:	82 17       	cp	r24, r18
+ c7c:	93 07       	cpc	r25, r19
+ c7e:	c0 f1       	brcs	.+112    	; 0xcf0 <MEF_reloj+0xa0>
         {
             contador_interrupciones_reloj = 0;
- c46:	10 92 3e 02 	sts	0x023E, r1	; 0x80023e <contador_interrupciones_reloj>
+ c80:	10 92 3f 02 	sts	0x023F, r1	; 0x80023f <contador_interrupciones_reloj>
             estado_MEF = 2;
- c4a:	82 e0       	ldi	r24, 0x02	; 2
- c4c:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
- c50:	08 95       	ret
+ c84:	82 e0       	ldi	r24, 0x02	; 2
+ c86:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
+ c8a:	08 95       	ret
 
         break;
 
     case 2: //Incrementar HH:MM:SS
 
         estado_MEF = 1;
- c52:	81 e0       	ldi	r24, 0x01	; 1
- c54:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
+ c8c:	81 e0       	ldi	r24, 0x01	; 1
+ c8e:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
         contador_interrupciones_reloj++;
- c58:	80 91 3e 02 	lds	r24, 0x023E	; 0x80023e <contador_interrupciones_reloj>
- c5c:	8f 5f       	subi	r24, 0xFF	; 255
- c5e:	80 93 3e 02 	sts	0x023E, r24	; 0x80023e <contador_interrupciones_reloj>
+ c92:	80 91 3f 02 	lds	r24, 0x023F	; 0x80023f <contador_interrupciones_reloj>
+ c96:	8f 5f       	subi	r24, 0xFF	; 255
+ c98:	80 93 3f 02 	sts	0x023F, r24	; 0x80023f <contador_interrupciones_reloj>
 
         masc_hora[5]++;
- c62:	85 81       	ldd	r24, Z+5	; 0x05
- c64:	8f 5f       	subi	r24, 0xFF	; 255
+ c9c:	85 81       	ldd	r24, Z+5	; 0x05
+ c9e:	8f 5f       	subi	r24, 0xFF	; 255
 
         if (masc_hora[5] > 9)
- c66:	8a 30       	cpi	r24, 0x0A	; 10
- c68:	10 f4       	brcc	.+4      	; 0xc6e <MEF_reloj+0x58>
+ ca0:	8a 30       	cpi	r24, 0x0A	; 10
+ ca2:	10 f4       	brcc	.+4      	; 0xca8 <MEF_reloj+0x58>
     case 2: //Incrementar HH:MM:SS
 
         estado_MEF = 1;
         contador_interrupciones_reloj++;
 
         masc_hora[5]++;
- c6a:	85 83       	std	Z+5, r24	; 0x05
- c6c:	08 95       	ret
+ ca4:	85 83       	std	Z+5, r24	; 0x05
+ ca6:	08 95       	ret
 
         if (masc_hora[5] > 9)
         {
             masc_hora[5] = 0;
- c6e:	15 82       	std	Z+5, r1	; 0x05
+ ca8:	15 82       	std	Z+5, r1	; 0x05
             masc_hora[4]++;
- c70:	84 81       	ldd	r24, Z+4	; 0x04
- c72:	8f 5f       	subi	r24, 0xFF	; 255
+ caa:	84 81       	ldd	r24, Z+4	; 0x04
+ cac:	8f 5f       	subi	r24, 0xFF	; 255
 
             if (masc_hora[4] > 5)
- c74:	86 30       	cpi	r24, 0x06	; 6
- c76:	10 f4       	brcc	.+4      	; 0xc7c <MEF_reloj+0x66>
+ cae:	86 30       	cpi	r24, 0x06	; 6
+ cb0:	10 f4       	brcc	.+4      	; 0xcb6 <MEF_reloj+0x66>
         masc_hora[5]++;
 
         if (masc_hora[5] > 9)
         {
             masc_hora[5] = 0;
             masc_hora[4]++;
- c78:	84 83       	std	Z+4, r24	; 0x04
- c7a:	08 95       	ret
+ cb2:	84 83       	std	Z+4, r24	; 0x04
+ cb4:	08 95       	ret
 
             if (masc_hora[4] > 5)
             {
                 masc_hora[4] = 0;
- c7c:	14 82       	std	Z+4, r1	; 0x04
+ cb6:	14 82       	std	Z+4, r1	; 0x04
                 masc_hora[3]++;
- c7e:	83 81       	ldd	r24, Z+3	; 0x03
- c80:	8f 5f       	subi	r24, 0xFF	; 255
+ cb8:	83 81       	ldd	r24, Z+3	; 0x03
+ cba:	8f 5f       	subi	r24, 0xFF	; 255
 
                 if (masc_hora[3] > 9)
- c82:	8a 30       	cpi	r24, 0x0A	; 10
- c84:	10 f4       	brcc	.+4      	; 0xc8a <MEF_reloj+0x74>
+ cbc:	8a 30       	cpi	r24, 0x0A	; 10
+ cbe:	10 f4       	brcc	.+4      	; 0xcc4 <MEF_reloj+0x74>
             masc_hora[4]++;
 
             if (masc_hora[4] > 5)
             {
                 masc_hora[4] = 0;
                 masc_hora[3]++;
- c86:	83 83       	std	Z+3, r24	; 0x03
- c88:	08 95       	ret
+ cc0:	83 83       	std	Z+3, r24	; 0x03
+ cc2:	08 95       	ret
 
                 if (masc_hora[3] > 9)
                 {
                     masc_hora[3] = 0;
- c8a:	13 82       	std	Z+3, r1	; 0x03
+ cc4:	13 82       	std	Z+3, r1	; 0x03
                     masc_hora[2]++;
- c8c:	82 81       	ldd	r24, Z+2	; 0x02
- c8e:	8f 5f       	subi	r24, 0xFF	; 255
+ cc6:	82 81       	ldd	r24, Z+2	; 0x02
+ cc8:	8f 5f       	subi	r24, 0xFF	; 255
 
                     if (masc_hora[2] > 5)
- c90:	86 30       	cpi	r24, 0x06	; 6
- c92:	10 f4       	brcc	.+4      	; 0xc98 <MEF_reloj+0x82>
+ cca:	86 30       	cpi	r24, 0x06	; 6
+ ccc:	10 f4       	brcc	.+4      	; 0xcd2 <MEF_reloj+0x82>
                 masc_hora[3]++;
 
                 if (masc_hora[3] > 9)
                 {
                     masc_hora[3] = 0;
                     masc_hora[2]++;
- c94:	82 83       	std	Z+2, r24	; 0x02
- c96:	08 95       	ret
+ cce:	82 83       	std	Z+2, r24	; 0x02
+ cd0:	08 95       	ret
 
                     if (masc_hora[2] > 5)
                     {
                         masc_hora[2] = 0;
- c98:	12 82       	std	Z+2, r1	; 0x02
+ cd2:	12 82       	std	Z+2, r1	; 0x02
                         masc_hora[1]++;
- c9a:	81 81       	ldd	r24, Z+1	; 0x01
- c9c:	8f 5f       	subi	r24, 0xFF	; 255
+ cd4:	81 81       	ldd	r24, Z+1	; 0x01
+ cd6:	8f 5f       	subi	r24, 0xFF	; 255
 
                         if (masc_hora[1] > 9)
- c9e:	8a 30       	cpi	r24, 0x0A	; 10
- ca0:	10 f4       	brcc	.+4      	; 0xca6 <MEF_reloj+0x90>
+ cd8:	8a 30       	cpi	r24, 0x0A	; 10
+ cda:	10 f4       	brcc	.+4      	; 0xce0 <MEF_reloj+0x90>
                     masc_hora[2]++;
 
                     if (masc_hora[2] > 5)
                     {
                         masc_hora[2] = 0;
                         masc_hora[1]++;
- ca2:	81 83       	std	Z+1, r24	; 0x01
- ca4:	08 95       	ret
+ cdc:	81 83       	std	Z+1, r24	; 0x01
+ cde:	08 95       	ret
 
                         if (masc_hora[1] > 9)
                         {
                             masc_hora[1] = 0;
- ca6:	11 82       	std	Z+1, r1	; 0x01
+ ce0:	11 82       	std	Z+1, r1	; 0x01
                             masc_hora[0]++;
- ca8:	80 81       	ld	r24, Z
- caa:	8f 5f       	subi	r24, 0xFF	; 255
+ ce2:	80 81       	ld	r24, Z
+ ce4:	8f 5f       	subi	r24, 0xFF	; 255
 
                             if (masc_hora[0] > 2)
- cac:	83 30       	cpi	r24, 0x03	; 3
- cae:	10 f4       	brcc	.+4      	; 0xcb4 <MEF_reloj+0x9e>
+ ce6:	83 30       	cpi	r24, 0x03	; 3
+ ce8:	10 f4       	brcc	.+4      	; 0xcee <MEF_reloj+0x9e>
                         masc_hora[1]++;
 
                         if (masc_hora[1] > 9)
                         {
                             masc_hora[1] = 0;
                             masc_hora[0]++;
- cb0:	80 83       	st	Z, r24
- cb2:	08 95       	ret
+ cea:	80 83       	st	Z, r24
+ cec:	08 95       	ret
 
                             if (masc_hora[0] > 2)
                             {
                                 masc_hora[0] = 0;
- cb4:	10 82       	st	Z, r1
- cb6:	08 95       	ret
+ cee:	10 82       	st	Z, r1
+ cf0:	08 95       	ret
 
-00000cb8 <__udivmodhi4>:
- cb8:	aa 1b       	sub	r26, r26
- cba:	bb 1b       	sub	r27, r27
- cbc:	51 e1       	ldi	r21, 0x11	; 17
- cbe:	07 c0       	rjmp	.+14     	; 0xcce <__udivmodhi4_ep>
+00000cf2 <__udivmodhi4>:
+ cf2:	aa 1b       	sub	r26, r26
+ cf4:	bb 1b       	sub	r27, r27
+ cf6:	51 e1       	ldi	r21, 0x11	; 17
+ cf8:	07 c0       	rjmp	.+14     	; 0xd08 <__udivmodhi4_ep>
 
-00000cc0 <__udivmodhi4_loop>:
- cc0:	aa 1f       	adc	r26, r26
- cc2:	bb 1f       	adc	r27, r27
- cc4:	a6 17       	cp	r26, r22
- cc6:	b7 07       	cpc	r27, r23
- cc8:	10 f0       	brcs	.+4      	; 0xcce <__udivmodhi4_ep>
- cca:	a6 1b       	sub	r26, r22
- ccc:	b7 0b       	sbc	r27, r23
+00000cfa <__udivmodhi4_loop>:
+ cfa:	aa 1f       	adc	r26, r26
+ cfc:	bb 1f       	adc	r27, r27
+ cfe:	a6 17       	cp	r26, r22
+ d00:	b7 07       	cpc	r27, r23
+ d02:	10 f0       	brcs	.+4      	; 0xd08 <__udivmodhi4_ep>
+ d04:	a6 1b       	sub	r26, r22
+ d06:	b7 0b       	sbc	r27, r23
 
-00000cce <__udivmodhi4_ep>:
- cce:	88 1f       	adc	r24, r24
- cd0:	99 1f       	adc	r25, r25
- cd2:	5a 95       	dec	r21
- cd4:	a9 f7       	brne	.-22     	; 0xcc0 <__udivmodhi4_loop>
- cd6:	80 95       	com	r24
- cd8:	90 95       	com	r25
- cda:	bc 01       	movw	r22, r24
- cdc:	cd 01       	movw	r24, r26
- cde:	08 95       	ret
+00000d08 <__udivmodhi4_ep>:
+ d08:	88 1f       	adc	r24, r24
+ d0a:	99 1f       	adc	r25, r25
+ d0c:	5a 95       	dec	r21
+ d0e:	a9 f7       	brne	.-22     	; 0xcfa <__udivmodhi4_loop>
+ d10:	80 95       	com	r24
+ d12:	90 95       	com	r25
+ d14:	bc 01       	movw	r22, r24
+ d16:	cd 01       	movw	r24, r26
+ d18:	08 95       	ret
 
-00000ce0 <__tablejump2__>:
- ce0:	ee 0f       	add	r30, r30
- ce2:	ff 1f       	adc	r31, r31
- ce4:	05 90       	lpm	r0, Z+
- ce6:	f4 91       	lpm	r31, Z
- ce8:	e0 2d       	mov	r30, r0
- cea:	09 94       	ijmp
+00000d1a <__tablejump2__>:
+ d1a:	ee 0f       	add	r30, r30
+ d1c:	ff 1f       	adc	r31, r31
+ d1e:	05 90       	lpm	r0, Z+
+ d20:	f4 91       	lpm	r31, Z
+ d22:	e0 2d       	mov	r30, r0
+ d24:	09 94       	ijmp
 
-00000cec <_exit>:
- cec:	f8 94       	cli
+00000d26 <_exit>:
+ d26:	f8 94       	cli
 
-00000cee <__stop_program>:
- cee:	ff cf       	rjmp	.-2      	; 0xcee <__stop_program>
+00000d28 <__stop_program>:
+ d28:	ff cf       	rjmp	.-2      	; 0xd28 <__stop_program>

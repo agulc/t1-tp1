@@ -314,7 +314,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xcf0
+.text           0x00000000      0xd2a
  *(.vectors)
  .vectors       0x00000000       0x68 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -401,7 +401,6 @@ END GROUP
                 0x000001e6                __vector_21
                 0x000001e6                __vector_15
                 0x000001e6                __vector_8
-                0x000001e6                __vector_14
                 0x000001e6                __vector_10
                 0x000001e6                __vector_16
                 0x000001e6                __vector_18
@@ -493,24 +492,27 @@ END GROUP
  .text.LCDcursorOFF
                 0x00000b94        0x8 lcd.o
                 0x00000b94                LCDcursorOFF
- .text.main     0x00000b9c       0x52 main.o
+ .text.main     0x00000b9c       0x6e main.o
                 0x00000b9c                main
+ .text.__vector_14
+                0x00000c0a       0x1e main.o
+                0x00000c0a                __vector_14
  .text.set_temporizador
-                0x00000bee       0x28 reloj.o
-                0x00000bee                set_temporizador
+                0x00000c28       0x28 reloj.o
+                0x00000c28                set_temporizador
  .text.MEF_reloj
-                0x00000c16       0xa2 reloj.o
-                0x00000c16                MEF_reloj
+                0x00000c50       0xa2 reloj.o
+                0x00000c50                MEF_reloj
  .text.libgcc.div
-                0x00000cb8       0x28 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000cb8                __udivmodhi4
- .text.libgcc   0x00000ce0        0xc d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x00000ce0                __tablejump2__
-                0x00000cec                . = ALIGN (0x2)
+                0x00000cf2       0x28 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000cf2                __udivmodhi4
+ .text.libgcc   0x00000d1a        0xc d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x00000d1a                __tablejump2__
+                0x00000d26                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000cec        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000cec                _exit
-                0x00000cec                exit
+ .fini9         0x00000d26        0x0 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000d26                _exit
+                0x00000d26                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -529,11 +531,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000cec        0x4 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000d26        0x4 d:/atmel studio 7/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000cf0                _etext = .
+                0x00000d2a                _etext = .
 
-.data           0x00800100      0x138 load address 0x00000cf0
+.data           0x00800100      0x138 load address 0x00000d2a
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -592,7 +594,7 @@ END GROUP
                 0x00800238                _edata = .
                 0x00800238                PROVIDE (__data_end, .)
 
-.bss            0x00800238        0x7
+.bss            0x00800238        0x8
                 0x00800238                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -607,19 +609,21 @@ END GROUP
  .bss.Old_key.1835
                 0x0080023c        0x1 key.o
  .bss.Key.1836  0x0080023d        0x1 key.o
+ .bss.flag      0x0080023e        0x1 main.o
+                0x0080023e                flag
  .bss.contador_interrupciones_reloj
-                0x0080023e        0x1 reloj.o
-                0x0080023e                contador_interrupciones_reloj
+                0x0080023f        0x1 reloj.o
+                0x0080023f                contador_interrupciones_reloj
  *(COMMON)
-                0x0080023f                PROVIDE (__bss_end, .)
-                0x00000cf0                __data_load_start = LOADADDR (.data)
-                0x00000e28                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800240                PROVIDE (__bss_end, .)
+                0x00000d2a                __data_load_start = LOADADDR (.data)
+                0x00000e62                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080023f        0x0
+.noinit         0x00800240        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080023f                _end = .
+                0x00800240                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -689,7 +693,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x220
+.debug_aranges  0x00000000      0x228
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 controlador_lcd.o
@@ -700,53 +704,53 @@ END GROUP
  .debug_aranges
                 0x00000120       0xb8 lcd.o
  .debug_aranges
-                0x000001d8       0x20 main.o
+                0x000001d8       0x28 main.o
  .debug_aranges
-                0x000001f8       0x28 reloj.o
+                0x00000200       0x28 reloj.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2497
+.debug_info     0x00000000     0x24c4
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x26c controlador_lcd.o
  .debug_info    0x00000860      0xcc4 funciones.o
  .debug_info    0x00001524      0x26c key.o
  .debug_info    0x00001790      0xad0 lcd.o
- .debug_info    0x00002260      0x16a main.o
- .debug_info    0x000023ca       0xcd reloj.o
+ .debug_info    0x00002260      0x197 main.o
+ .debug_info    0x000023f7       0xcd reloj.o
 
-.debug_abbrev   0x00000000      0xd97
+.debug_abbrev   0x00000000      0xdc7
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2       0xf8 controlador_lcd.o
  .debug_abbrev  0x0000069a      0x22f funciones.o
  .debug_abbrev  0x000008c9      0x176 key.o
  .debug_abbrev  0x00000a3f      0x233 lcd.o
- .debug_abbrev  0x00000c72       0xba main.o
- .debug_abbrev  0x00000d2c       0x6b reloj.o
+ .debug_abbrev  0x00000c72       0xea main.o
+ .debug_abbrev  0x00000d5c       0x6b reloj.o
 
-.debug_line     0x00000000     0x13a4
+.debug_line     0x00000000     0x13de
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x124 controlador_lcd.o
  .debug_line    0x00000258      0x6d8 funciones.o
  .debug_line    0x00000930      0x29f key.o
  .debug_line    0x00000bcf      0x5be lcd.o
- .debug_line    0x0000118d       0xf5 main.o
- .debug_line    0x00001282      0x122 reloj.o
+ .debug_line    0x0000118d      0x12f main.o
+ .debug_line    0x000012bc      0x122 reloj.o
 
-.debug_frame    0x00000000      0x52c
+.debug_frame    0x00000000      0x54c
  *(.debug_frame)
  .debug_frame   0x00000000       0x84 controlador_lcd.o
  .debug_frame   0x00000084      0x17c funciones.o
  .debug_frame   0x00000200       0x9c key.o
  .debug_frame   0x0000029c      0x228 lcd.o
- .debug_frame   0x000004c4       0x34 main.o
- .debug_frame   0x000004f8       0x34 reloj.o
+ .debug_frame   0x000004c4       0x54 main.o
+ .debug_frame   0x00000518       0x34 reloj.o
 
-.debug_str      0x00000000      0x8c1
+.debug_str      0x00000000      0x8d2
  *(.debug_str)
  .debug_str     0x00000000      0x208 D:/Atmel studio 7/7.0/Packs/Atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x198 controlador_lcd.o
@@ -757,19 +761,19 @@ END GROUP
                                 0x1f7 (size before relaxing)
  .debug_str     0x000006a8      0x1a2 lcd.o
                                 0x360 (size before relaxing)
- .debug_str     0x0000084a       0x36 main.o
-                                0x1d5 (size before relaxing)
- .debug_str     0x00000880       0x41 reloj.o
+ .debug_str     0x0000084a       0x47 main.o
+                                0x1e6 (size before relaxing)
+ .debug_str     0x00000891       0x41 reloj.o
                                 0x19b (size before relaxing)
 
-.debug_loc      0x00000000     0x2273
+.debug_loc      0x00000000     0x22af
  *(.debug_loc)
  .debug_loc     0x00000000      0x293 controlador_lcd.o
  .debug_loc     0x00000293      0xa33 funciones.o
  .debug_loc     0x00000cc6      0x654 key.o
  .debug_loc     0x0000131a      0xe94 lcd.o
- .debug_loc     0x000021ae       0x47 main.o
- .debug_loc     0x000021f5       0x7e reloj.o
+ .debug_loc     0x000021ae       0x83 main.o
+ .debug_loc     0x00002231       0x7e reloj.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -789,14 +793,14 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x288
+.debug_ranges   0x00000000      0x290
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 controlador_lcd.o
  .debug_ranges  0x00000020      0x128 funciones.o
  .debug_ranges  0x00000148       0x58 key.o
  .debug_ranges  0x000001a0       0xc0 lcd.o
- .debug_ranges  0x00000260       0x10 main.o
- .debug_ranges  0x00000270       0x18 reloj.o
+ .debug_ranges  0x00000260       0x18 main.o
+ .debug_ranges  0x00000278       0x18 reloj.o
 
 .debug_macro
  *(.debug_macro)
