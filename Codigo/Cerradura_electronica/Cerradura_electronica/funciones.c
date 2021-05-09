@@ -16,7 +16,7 @@ uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ','
 
 char cursor_clave = 0;
 char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]) - 1;
-
+unsigned char = estado;
 
 
 void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
@@ -31,8 +31,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 
     //seteo lo que se tenga que mostrar en el display
 	refrescar_mascara_reloj(reloj);
-	mostrarArriba(reloj);
-	mostrarAbajo("     CERRADO    ");
+	mostrarAbajo("    CERRADO    ");
 
     switch (tecla)
     {
@@ -70,9 +69,10 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 	//Mostrar "Ingresar clave" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
 	unsigned char proximo_estado = 2;
 
-	
 	//seteo lo que se tenga que mostrar en el display
-	
+	mostrarArriba("Ingresar clave ");
+	refrescar_cursor_clave();
+
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
@@ -100,6 +100,7 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 	
 }
 
+
 unsigned char comparar_claves()
 {
 	char comparacion = 1;
@@ -126,4 +127,27 @@ void refrescar_mascara_reloj(unsigned char *reloj)
 	mascara_reloj[8] = reloj[3] + '0';
 	mascara_reloj[10] = reloj[4] + '0';
 	mascara_reloj[11] = reloj[5] + '0';
+
+	mostrarArriba(reloj);
+}
+
+void refrescar_cursor_clave()
+{
+	switch (cursor_clave)
+	{
+	case 1:
+		mostrarAbajo("      *        ");
+		break;
+	
+	case 2:
+		mostrarAbajo("      **       ");
+		break;
+	
+	case 3:
+		mostrarAbajo("      ***      ");
+		break
+	
+	default:
+		break;
+	}
 }
