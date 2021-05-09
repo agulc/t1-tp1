@@ -83,7 +83,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 
     //seteo lo que se tenga que mostrar en el display
 	refrescar_mascara_reloj(reloj);
-	mostrarAbajo("    CERRADO    ");
+	mostrarAbajo("    CERRADO     ");
 
     switch (tecla)
     {
@@ -534,7 +534,7 @@ void refrescar_mascara_reloj(unsigned char *reloj)
 	mascara_reloj[10] =  reloj[4] + '0';
 	mascara_reloj[11] =  reloj[5] + '0';
 
-	mostrarArriba(reloj);
+	mostrarArriba(mascara_reloj);
 }
 
 void modificar_reloj(unsigned char *reloj)
@@ -552,27 +552,27 @@ void refrescar_cursor_clave()
 	switch (cursor_clave)
 	{
 	case 0:
-		mostrarAbajo("               ");
+		mostrarAbajo("                ");
 		break;
 	
 	case 1:
-		mostrarAbajo("      *        ");
+		mostrarAbajo("      *         ");
 		break;
 	
 	case 2:
-		mostrarAbajo("      **       ");
+		mostrarAbajo("      **        ");
 		break;
 	
 	case 3:
-		mostrarAbajo("      ***      ");
+		mostrarAbajo("      ***       ");
 		break;
 	
 	case 4:
-		mostrarAbajo("      ****     ");
+		mostrarAbajo("      ****      ");
 		break;
 	
 	default:
-		mostrarAbajo("      OOB      ");
+		mostrarAbajo("      OOB       ");
 		break;
 	}
 }
