@@ -9,6 +9,7 @@ unsigned char comparar_claves();
 unsigned char abierto();
 unsigned char denegado();
 unsigned char cambiar_clave_clave_actual(uint8_t tecla);
+unsigned char cambiar_clave_nueva_clave(uint8_t tecla);
 void refrescar_mascara_reloj(unsigned char *reloj);
 void set_temporizador(unsigned short intervalo_interrupcion);
 void refrescar_cursor_clave();
@@ -20,7 +21,6 @@ unsigned short tres_segundos = 30; //Suponer que 1int = 100ms
 unsigned short contador_interrupciones = 0;
 uint8_t clave_mascara[] = {'x','x','x','x'} ;
 uint8_t clave_ingresada[] = clave_mascara ;
-uint8_t clave_nueva[] = clave_mascara ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
 uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
 
@@ -145,18 +145,18 @@ unsigned char denegado()
 
 unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 {
-	//Mostrar "Ingresar clave" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
+	//Mostrar "Clave actual" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
 	unsigned char proximo_estado = 5;
 
 	//seteo lo que se tenga que mostrar en el display
 	mostrarArriba("Clave actual   ");
-	refrescar_cursor_clave();
-
+	
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
+			refrescar_cursor_clave();
 			
 			if (cursor_clave > tam_clave)
 			{
@@ -169,6 +169,51 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 				}
 			}
 			
+			break;
+		
+		case '#':
+			clave_ingresada = clave_mascara;
+			cursor_clave = 0;
+			proximo_estado = 1;
+			break;
+		
+		default:
+			break;
+	}
+	
+	return proximo_estado;
+}
+
+unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
+{
+	//Mostrar "Nueva" y  "*" por cada caracter ingresado. Se mantiene hasta haber ingresado una clave de 4 caracteres.
+	unsigned char proximo_estado = ;
+
+	//seteo lo que se tenga que mostrar en el display
+	mostrarArriba("Clave actual   ");
+	
+
+	switch (tecla)
+	{
+		case '0','1','2','3','4','5','6','7','8','9':
+
+			if (cursor_clave < tam_clave)
+			{
+				clave_ingresada[cursor_clave] = tecla;
+				cursor_clave++;
+				refrescar_cursor_clave();
+			}
+			break;
+		
+		case 'D':
+
+			if (cursor_clave > tam_clave)
+			{
+				clave_actual = clave_ingresada;
+				clave_ingresada = clave_mascara;
+				cursor_clave = 0;
+				proximo_estado = 7;
+			}
 			break;
 		
 		case '#':
@@ -218,6 +263,10 @@ void refrescar_cursor_clave()
 {
 	switch (cursor_clave)
 	{
+	case 0:
+		mostrarAbajo("               ");
+		break;
+	
 	case 1:
 		mostrarAbajo("      *        ");
 		break;
@@ -228,6 +277,10 @@ void refrescar_cursor_clave()
 	
 	case 3:
 		mostrarAbajo("      ***      ");
+		break
+	
+	case 4:
+		mostrarAbajo("      ****     ");
 		break
 	
 	default:
