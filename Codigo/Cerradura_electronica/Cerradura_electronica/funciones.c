@@ -104,6 +104,8 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'A':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			mostrarArriba(mascara_reloj_conjelada);
+			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(4,0);
 			LCDcursorOnBlink();
 			proximo_estado = 8; //Modificar hora
@@ -112,6 +114,8 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'B':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			mostrarArriba(mascara_reloj_conjelada);
+			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(7,0);
 			LCDcursorOnBlink();
 			proximo_estado = 9; //Modificar minutos
@@ -119,6 +123,8 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'C':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			mostrarArriba(mascara_reloj_conjelada);
+			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(10,0);
 			LCDcursorOnBlink();
 			proximo_estado = 10; //Modificar segundos
@@ -238,7 +244,7 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 		case '9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
-			
+
 			if (cursor_clave >= tam_clave)
 			{
 				cursor_clave = 0;
@@ -342,8 +348,7 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 	static char cursor_hora = 4;
 	static char valor_hora_alto;
 	
-	mostrarArriba(mascara_reloj_conjelada);
-	mostrarAbajo("    CERRADO    ");
+	
 	
 	switch (tecla)
 	{
@@ -382,6 +387,7 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 					}
 				}
 			}
+			mostrarArriba(mascara_reloj_conjelada);
 			LCDGotoXY(cursor_hora,0);
 			break;
 		
@@ -405,9 +411,6 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 9;
 	static char cursor_minutos = 7;
-	
-	mostrarArriba(mascara_reloj_conjelada);
-	mostrarAbajo("    CERRADO    ");
 	
 	switch (tecla)
 	{
@@ -435,6 +438,7 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 				mascara_reloj_conjelada[cursor_minutos] = tecla;
 				cursor_minutos = 7;
 			}
+			mostrarArriba(mascara_reloj_conjelada);
 			LCDGotoXY(cursor_minutos,0);
 			break;
 		
@@ -458,9 +462,6 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 10;
 	static char cursor_segundos = 10;
-	
-	mostrarArriba(mascara_reloj_conjelada);
-	mostrarAbajo("    CERRADO    ");
 	
 	switch (tecla)
 	{
@@ -488,6 +489,7 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 				mascara_reloj_conjelada[cursor_segundos] = tecla;
 				cursor_segundos = 10;
 			}
+			mostrarArriba(mascara_reloj_conjelada);
 			LCDGotoXY(cursor_segundos,0);
 			break;
 		
