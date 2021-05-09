@@ -200,13 +200,13 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 
 	//seteo lo que se tenga que mostrar en el display
 	mostrarArriba("Clave actual   ");
+	refrescar_cursor_clave();
 	
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
-			refrescar_cursor_clave();
 			
 			if (cursor_clave > tam_clave)
 			{
