@@ -271,7 +271,7 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 	unsigned char proximo_estado = 6;
 
 	//seteo lo que se tenga que mostrar en el display
-	mostrarArriba("Clave actual   ");
+	mostrarArriba("Clave Nueva    ");
 	refrescar_cursor_clave();
 
 	switch (tecla)

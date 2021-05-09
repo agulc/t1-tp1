@@ -24,7 +24,7 @@ int main(void)
     {
       MEF_reloj(masc_hora);
       tecla = 0;
-      //KEYPAD_Update(&tecla);
+      KEYPAD_Update(&tecla);
 	  mef_funciones(masc_hora,tecla);
      // _delay_ms(10);  
     }

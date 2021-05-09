@@ -133,6 +133,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="controlador_lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="controlador_lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="funciones.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="funciones.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="key.c">
       <SubType>compile</SubType>
     </Compile>
@@ -146,6 +158,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="reloj.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="reloj.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
