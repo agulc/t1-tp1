@@ -2,6 +2,7 @@
 Para mas información, ver la documentación del proyecto*/
 
 #include "controlador_lcd.h"
+#include "lcd.h"
 
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
@@ -27,8 +28,8 @@ uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ','
 uint8_t mascara_reloj_conjelada[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
 
 char cursor_clave = 0;
-char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]) - 1;
-unsigned char = estado;
+char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]);
+unsigned char estado;
 
 
 void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería recibir una vez establecido el modulo LCD
@@ -54,8 +55,11 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			break;
 		
 		case 'A':
-			mascara_reloj_conjelada = mascara
+			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			LCDGotoXY(4,0)
+			LCDcursorOnBlink();
 			proximo_estado = 8; //Modificar hora
+
 			break;
 		
 		case 'B':
@@ -252,6 +256,45 @@ unsigned char cambiar_clave_fin()
 	
 }
 
+unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
+{
+	unsigned char proximo_estado = 8;
+	static char cursor_hora = 4;
+	
+	mostrarArriba(mascara_reloj_conjelada);
+	mostrarAbajo("    CERRADO    ");
+	
+	switch (tecla)
+	{
+		case '0','1','2','3','4','5','6','7','8','9':
+			mascara_reloj_conjelada[cursor_hora] = tecla;
+			
+			if (cursor_hora == 4)
+			{
+				cursor_hora = 5;
+			}
+			else
+			{
+				cursor_hora = 4;
+			}
+			LCDGotoXY(cursor_hora,0);
+			break;
+		
+		case 'A':
+			modificar_reloj(reloj);
+		
+		case '#':
+			cursor_hora = 4;
+			proximo_estado = 1;
+			break;
+		
+		default:
+			break;
+	}
+	
+	return proximo_estado;
+}
+
 unsigned char comparar_claves()
 {
 	char comparacion = 1;
@@ -281,6 +324,17 @@ void refrescar_mascara_reloj(unsigned char *reloj)
 
 	mostrarArriba(reloj);
 }
+
+void modificar_reloj(unsigned char *reloj)
+{
+	reloj[0] = mascara_reloj_conjelada[4] - '0';
+	reloj[1] = mascara_reloj_conjelada[5] - '0';
+	reloj[2] = mascara_reloj_conjelada[7] - '0';
+	reloj[3] = mascara_reloj_conjelada[8] - '0';
+	reloj[4] = mascara_reloj_conjelada[10] - '0';
+	reloj[5] = mascara_reloj_conjelada[11] - '0';
+1
+
 
 void refrescar_cursor_clave()
 {
