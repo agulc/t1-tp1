@@ -3,12 +3,13 @@ Para mas información, ver la documentación del proyecto*/
 
 #include "controladorLCD.c"
 
-void refrescar_mascara_reloj(unsigned char *reloj);
-void set_temporizador(unsigned short intervalo_interrupcion);
-void refrescar_cursor_clave();
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
 unsigned char comparar_claves();
+void refrescar_mascara_reloj(unsigned char *reloj);
+void set_temporizador(unsigned short intervalo_interrupcion);
+void refrescar_cursor_clave();
+void set_temporizador(unsigned short intervalo_interrupcion);
 
 unsigned short un_segundo = 10; //Suponer que 1int = 100ms
 unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
@@ -121,6 +122,22 @@ unsigned char abierto()
 
 	return proximo_estado;
 	
+}
+
+unsigned char denegado()
+{
+	unsigned char proximo_estado = 4;
+
+	contador_interrupciones++;
+	mostrarArriba("               ");
+	mostrarAbajo("    DENEGADO   ");
+
+	if (contador_interrupciones > dos_segundos)
+	{
+		proximo_estado = 1;
+	}
+
+	return proximo_estado;	
 }
 
 unsigned char comparar_claves()
