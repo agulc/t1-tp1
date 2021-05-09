@@ -18,6 +18,7 @@ int main(void)
     unsigned char masc_hora[] = {0,0,0,0,0,0};
     uint8_t tecla = 0;
     set_temporizador(100);
+	LCDinit();
 
     while (1) 
     {
