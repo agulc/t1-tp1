@@ -137,7 +137,7 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
 			
-			if (cursor_clave > tam_clave)
+			if (cursor_clave >= tam_clave)
 			{
 				cursor_clave = 0;
 				proximo_estado = 4; //Denegado
@@ -430,7 +430,7 @@ unsigned char comparar_claves()
 		}
 	}
 	
-	clave_ingresada = clave_mascara;
+	copiar_arreglo(clave_mascara,clave_ingresada,tam_clave);
 	
 	return comparacion;
 }
@@ -482,6 +482,7 @@ void refrescar_cursor_clave()
 		break
 	
 	default:
+		mostrarAbajo("      OOB      ");
 		break;
 	}
 }
