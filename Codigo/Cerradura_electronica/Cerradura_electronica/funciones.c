@@ -37,37 +37,37 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
 	switch (estado)
 	{
 		case 1:
-			pantalla_principal(tecla,reloj);
+			estado = pantalla_principal(tecla,reloj);
 			break;
 		case 2:
-			ingresar_clave_entrada(tecla);
+			estado = ingresar_clave_entrada(tecla);
 			break;
 		case 3:
-			abierto();
+			estado = abierto();
 			break;
 		case 4:
-			denegado();
+			estado = denegado();
 			break;
 		case 5:
-			cambiar_clave_clave_actual(tecla);
+			estado = cambiar_clave_clave_actual(tecla);
 			break;
 		case 6:
-			cambiar_clave_nueva_clave(tecla);
+			estado = cambiar_clave_nueva_clave(tecla);
 			break;
 		case 7:
-			cambiar_clave_fin();
+			estado = cambiar_clave_fin();
 			break;
 		case 8:
-			modificar_hora(reloj,tecla);
+			estado = modificar_hora(reloj,tecla);
 			break;
 		case 9:
-			modificar_minutos(reloj,tecla);
+			estado = modificar_minutos(reloj,tecla);
 			break;
 		case 10:
-			modificar_segundos(reloj,tecla);
+			estado = modificar_segundos(reloj,tecla);
 			break;
 		default:
-			pantalla_principal(tecla,reloj);
+			estado = pantalla_principal(tecla,reloj);
 			break;		
 	}
 }
@@ -98,10 +98,16 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			break;
 		
 		case 'B':
+			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			LCDGotoXY(7,0)
+			LCDcursorOnBlink();
 			proximo_estado = 9; //Modificar minutos
 			break;
 		
 		case 'C':
+			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			LCDGotoXY(10,0)
+			LCDcursorOnBlink();
 			proximo_estado = 10; //Modificar segundos
 			break;
 		
