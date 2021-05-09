@@ -19,15 +19,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000dc7  00000000  00000000  00003654  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000013de  00000000  00000000  0000441b  2**0
+  8 .debug_line   0000144a  00000000  00000000  0000441b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000054c  00000000  00000000  000057fc  2**2
+  9 .debug_frame  0000054c  00000000  00000000  00005868  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000008d2  00000000  00000000  00005d48  2**0
+ 10 .debug_str    00000933  00000000  00000000  00005db4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000022af  00000000  00000000  0000661a  2**0
+ 11 .debug_loc    000022af  00000000  00000000  000066e7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000290  00000000  00000000  000088c9  2**0
+ 12 .debug_ranges 00000290  00000000  00000000  00008996  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -2300,35 +2300,16 @@ ISR(TIMER0_COMPA_vect){
  c26:	18 95       	reti
 
 00000c28 <set_temporizador>:
-volatile unsigned char estado_MEF = 1;
-unsigned short un_segundo = 10; //Suponer que 1int = 100ms
-unsigned char contador_interrupciones_reloj = 0;
-
-void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
-{
  c28:	bc 01       	movw	r22, r24
-    un_segundo = (unsigned short) 1000/intervalo_interrupcion;
  c2a:	88 ee       	ldi	r24, 0xE8	; 232
  c2c:	93 e0       	ldi	r25, 0x03	; 3
  c2e:	0e 94 79 06 	call	0xcf2	; 0xcf2 <__udivmodhi4>
-    
-    if (!un_segundo)
  c32:	61 15       	cp	r22, r1
  c34:	71 05       	cpc	r23, r1
  c36:	29 f0       	breq	.+10     	; 0xc42 <set_temporizador+0x1a>
-unsigned short un_segundo = 10; //Suponer que 1int = 100ms
-unsigned char contador_interrupciones_reloj = 0;
-
-void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
-{
-    un_segundo = (unsigned short) 1000/intervalo_interrupcion;
  c38:	70 93 38 01 	sts	0x0138, r23	; 0x800138 <un_segundo+0x1>
  c3c:	60 93 37 01 	sts	0x0137, r22	; 0x800137 <un_segundo>
  c40:	08 95       	ret
-    
-    if (!un_segundo)
-    {
-        un_segundo  =  1;
  c42:	81 e0       	ldi	r24, 0x01	; 1
  c44:	90 e0       	ldi	r25, 0x00	; 0
  c46:	90 93 38 01 	sts	0x0138, r25	; 0x800138 <un_segundo+0x1>
@@ -2336,179 +2317,74 @@ void set_temporizador(unsigned short intervalo_interrupcion) //establece la cant
  c4e:	08 95       	ret
 
 00000c50 <MEF_reloj>:
-    }   
-}
-
-
-void MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
-{
  c50:	fc 01       	movw	r30, r24
-
-    switch (estado_MEF)
  c52:	90 91 39 01 	lds	r25, 0x0139	; 0x800139 <estado_MEF>
  c56:	91 30       	cpi	r25, 0x01	; 1
  c58:	19 f0       	breq	.+6      	; 0xc60 <MEF_reloj+0x10>
  c5a:	92 30       	cpi	r25, 0x02	; 2
  c5c:	b9 f0       	breq	.+46     	; 0xc8c <MEF_reloj+0x3c>
  c5e:	08 95       	ret
-    {
-
-    case 1: //Reloj quieto
-
-        estado_MEF = 1;
  c60:	81 e0       	ldi	r24, 0x01	; 1
  c62:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
-        contador_interrupciones_reloj++;
  c66:	80 91 3f 02 	lds	r24, 0x023F	; 0x80023f <contador_interrupciones_reloj>
  c6a:	8f 5f       	subi	r24, 0xFF	; 255
  c6c:	80 93 3f 02 	sts	0x023F, r24	; 0x80023f <contador_interrupciones_reloj>
-
-        if (un_segundo <= contador_interrupciones_reloj)
  c70:	90 e0       	ldi	r25, 0x00	; 0
  c72:	20 91 37 01 	lds	r18, 0x0137	; 0x800137 <un_segundo>
  c76:	30 91 38 01 	lds	r19, 0x0138	; 0x800138 <un_segundo+0x1>
  c7a:	82 17       	cp	r24, r18
  c7c:	93 07       	cpc	r25, r19
  c7e:	c0 f1       	brcs	.+112    	; 0xcf0 <MEF_reloj+0xa0>
-        {
-            contador_interrupciones_reloj = 0;
  c80:	10 92 3f 02 	sts	0x023F, r1	; 0x80023f <contador_interrupciones_reloj>
-            estado_MEF = 2;
  c84:	82 e0       	ldi	r24, 0x02	; 2
  c86:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
  c8a:	08 95       	ret
-
-        break;
-
-    case 2: //Incrementar HH:MM:SS
-
-        estado_MEF = 1;
  c8c:	81 e0       	ldi	r24, 0x01	; 1
  c8e:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <estado_MEF>
-        contador_interrupciones_reloj++;
  c92:	80 91 3f 02 	lds	r24, 0x023F	; 0x80023f <contador_interrupciones_reloj>
  c96:	8f 5f       	subi	r24, 0xFF	; 255
  c98:	80 93 3f 02 	sts	0x023F, r24	; 0x80023f <contador_interrupciones_reloj>
-
-        masc_hora[5]++;
  c9c:	85 81       	ldd	r24, Z+5	; 0x05
  c9e:	8f 5f       	subi	r24, 0xFF	; 255
-
-        if (masc_hora[5] > 9)
  ca0:	8a 30       	cpi	r24, 0x0A	; 10
  ca2:	10 f4       	brcc	.+4      	; 0xca8 <MEF_reloj+0x58>
-    case 2: //Incrementar HH:MM:SS
-
-        estado_MEF = 1;
-        contador_interrupciones_reloj++;
-
-        masc_hora[5]++;
  ca4:	85 83       	std	Z+5, r24	; 0x05
  ca6:	08 95       	ret
-
-        if (masc_hora[5] > 9)
-        {
-            masc_hora[5] = 0;
  ca8:	15 82       	std	Z+5, r1	; 0x05
-            masc_hora[4]++;
  caa:	84 81       	ldd	r24, Z+4	; 0x04
  cac:	8f 5f       	subi	r24, 0xFF	; 255
-
-            if (masc_hora[4] > 5)
  cae:	86 30       	cpi	r24, 0x06	; 6
  cb0:	10 f4       	brcc	.+4      	; 0xcb6 <MEF_reloj+0x66>
-        masc_hora[5]++;
-
-        if (masc_hora[5] > 9)
-        {
-            masc_hora[5] = 0;
-            masc_hora[4]++;
  cb2:	84 83       	std	Z+4, r24	; 0x04
  cb4:	08 95       	ret
-
-            if (masc_hora[4] > 5)
-            {
-                masc_hora[4] = 0;
  cb6:	14 82       	std	Z+4, r1	; 0x04
-                masc_hora[3]++;
  cb8:	83 81       	ldd	r24, Z+3	; 0x03
  cba:	8f 5f       	subi	r24, 0xFF	; 255
-
-                if (masc_hora[3] > 9)
  cbc:	8a 30       	cpi	r24, 0x0A	; 10
  cbe:	10 f4       	brcc	.+4      	; 0xcc4 <MEF_reloj+0x74>
-            masc_hora[4]++;
-
-            if (masc_hora[4] > 5)
-            {
-                masc_hora[4] = 0;
-                masc_hora[3]++;
  cc0:	83 83       	std	Z+3, r24	; 0x03
  cc2:	08 95       	ret
-
-                if (masc_hora[3] > 9)
-                {
-                    masc_hora[3] = 0;
  cc4:	13 82       	std	Z+3, r1	; 0x03
-                    masc_hora[2]++;
  cc6:	82 81       	ldd	r24, Z+2	; 0x02
  cc8:	8f 5f       	subi	r24, 0xFF	; 255
-
-                    if (masc_hora[2] > 5)
  cca:	86 30       	cpi	r24, 0x06	; 6
  ccc:	10 f4       	brcc	.+4      	; 0xcd2 <MEF_reloj+0x82>
-                masc_hora[3]++;
-
-                if (masc_hora[3] > 9)
-                {
-                    masc_hora[3] = 0;
-                    masc_hora[2]++;
  cce:	82 83       	std	Z+2, r24	; 0x02
  cd0:	08 95       	ret
-
-                    if (masc_hora[2] > 5)
-                    {
-                        masc_hora[2] = 0;
  cd2:	12 82       	std	Z+2, r1	; 0x02
-                        masc_hora[1]++;
  cd4:	81 81       	ldd	r24, Z+1	; 0x01
  cd6:	8f 5f       	subi	r24, 0xFF	; 255
-
-                        if (masc_hora[1] > 9)
  cd8:	8a 30       	cpi	r24, 0x0A	; 10
  cda:	10 f4       	brcc	.+4      	; 0xce0 <MEF_reloj+0x90>
-                    masc_hora[2]++;
-
-                    if (masc_hora[2] > 5)
-                    {
-                        masc_hora[2] = 0;
-                        masc_hora[1]++;
  cdc:	81 83       	std	Z+1, r24	; 0x01
  cde:	08 95       	ret
-
-                        if (masc_hora[1] > 9)
-                        {
-                            masc_hora[1] = 0;
  ce0:	11 82       	std	Z+1, r1	; 0x01
-                            masc_hora[0]++;
  ce2:	80 81       	ld	r24, Z
  ce4:	8f 5f       	subi	r24, 0xFF	; 255
-
-                            if (masc_hora[0] > 2)
  ce6:	83 30       	cpi	r24, 0x03	; 3
  ce8:	10 f4       	brcc	.+4      	; 0xcee <MEF_reloj+0x9e>
-                        masc_hora[1]++;
-
-                        if (masc_hora[1] > 9)
-                        {
-                            masc_hora[1] = 0;
-                            masc_hora[0]++;
  cea:	80 83       	st	Z, r24
  cec:	08 95       	ret
-
-                            if (masc_hora[0] > 2)
-                            {
-                                masc_hora[0] = 0;
  cee:	10 82       	st	Z, r1
  cf0:	08 95       	ret
 
