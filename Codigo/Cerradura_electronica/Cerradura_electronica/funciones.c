@@ -336,6 +336,46 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 	return proximo_estado;
 }
 
+unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
+{
+	unsigned char proximo_estado = 10;
+	static char cursor_segundos = 10;
+	
+	mostrarArriba(mascara_reloj_conjelada);
+	mostrarAbajo("    CERRADO    ");
+	
+	switch (tecla)
+	{
+		case '0','1','2','3','4','5','6','7','8','9':
+			mascara_reloj_conjelada[cursor_segundos] = tecla;
+		
+			if (cursor_segundos == 10)
+			{
+				cursor_segundos = 11;
+			}
+			else
+			{
+				cursor_segundos = 10;
+			}
+			LCDGotoXY(cursor_segundos,0);
+			break;
+		
+		case 'A':
+			modificar_reloj(reloj);
+		
+		case '#':
+			cursor_segundos = 10;
+			LCDcursorOFF();
+			proximo_estado = 1;
+			break;
+		
+		default:
+			break;
+	}
+	
+	return proximo_estado;
+}
+
 unsigned char comparar_claves()
 {
 	char comparacion = 1;
