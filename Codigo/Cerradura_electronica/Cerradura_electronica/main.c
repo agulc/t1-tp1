@@ -7,12 +7,8 @@
 
 #include <avr/io.h>
 #include "lcd.h"
-#include <time.h>
 #define F_CPU 8000000L
-#include <util/delay.h>
-#include <string.h>
-#include "controlador_lcd.c"
-
+#include "controlador_lcd.h"
 int main(void)
 {
 	uint8_t locked[8] = {1+'0',6+'0',':','2','0',':','0','0'};

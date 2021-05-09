@@ -1,3 +1,4 @@
+#include <avr/io.h>
 uint8_t x = 16;
 
 void mostrarString(const uint8_t *dato, uint8_t x, uint8_t y, uint8_t size )
