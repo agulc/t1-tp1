@@ -1,18 +1,16 @@
 #ifndef LCD_H
 #define LCD_H
-
 #define F_CPU 8000000L
 #include <util/delay.h>
-
 #include <inttypes.h>
 
-//	#include "main.h"
+	//#include "main.h"
 
 
-//Uncomment this if LCD 4 bit interface is used
-//******************************************
+
+
 #define LCD_4bit
-//***********************************************
+
 
 #define LCD_RS	0 	//define MCU pin connected to LCD RS
 #define LCD_RW	1 	//define MCU pin connected to LCD R/W
