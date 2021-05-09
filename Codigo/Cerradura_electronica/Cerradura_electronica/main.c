@@ -6,14 +6,18 @@
  */ 
 
 #include <avr/io.h>
-#include "test_reloj.h"
+#include "reloj.h"
+#include "lcd.h"
+#include "key.h"
 
 int main(void)
 {
+    uint8_t tecla = 0;
     /* Replace with your application code */
     while (1) 
     {
-		test();
+      tecla = 0;
+      KEYPAD_Update(&tecla);
+      _delay_ms(10);
     }
 }
-
