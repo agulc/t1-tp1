@@ -285,6 +285,47 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 		
 		case '#':
 			cursor_hora = 4;
+			LCDcursorOFF();
+			proximo_estado = 1;
+			break;
+		
+		default:
+			break;
+	}
+	
+	return proximo_estado;
+}
+
+unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
+{
+	unsigned char proximo_estado = 9;
+	static char cursor_minutos = 7;
+	
+	mostrarArriba(mascara_reloj_conjelada);
+	mostrarAbajo("    CERRADO    ");
+	
+	switch (tecla)
+	{
+		case '0','1','2','3','4','5','6','7','8','9':
+			mascara_reloj_conjelada[cursor_minutos] = tecla;
+			
+			if (cursor_minutos == 7)
+			{
+				cursor_minutos = 8;
+			}
+			else
+			{
+				cursor_minutos = 7;
+			}
+			LCDGotoXY(cursor_minutos,0);
+			break;
+		
+		case 'A':
+			modificar_reloj(reloj);
+		
+		case '#':
+			cursor_minutos = 7;
+			LCDcursorOFF();
 			proximo_estado = 1;
 			break;
 		
