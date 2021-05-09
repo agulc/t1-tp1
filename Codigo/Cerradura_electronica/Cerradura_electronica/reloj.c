@@ -17,7 +17,7 @@ void set_temporizador(unsigned short intervalo_interrupcion) //establece la cant
 }
 
 
-int MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
+void MEF_reloj(unsigned char *masc_hora) //formato: unsigned char masc_hora[] = {0,0,0,0,0,0};
 {
 
     switch (estado_MEF)
