@@ -1,4 +1,4 @@
-#include "reloj.c"
+#include "reloj.h"
 
 int test(void)
 {
