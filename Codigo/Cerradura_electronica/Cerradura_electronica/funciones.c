@@ -208,7 +208,7 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 			clave_ingresada[cursor_clave] = tecla;
 			cursor_clave++;
 			
-			if (cursor_clave > tam_clave)
+			if (cursor_clave >= tam_clave)
 			{
 				cursor_clave = 0;
 				proximo_estado = 4; //Denegado
@@ -241,7 +241,7 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 
 	//seteo lo que se tenga que mostrar en el display
 	mostrarArriba("Clave actual   ");
-	
+	refrescar_cursor_clave();
 
 	switch (tecla)
 	{
@@ -251,13 +251,12 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 			{
 				clave_ingresada[cursor_clave] = tecla;
 				cursor_clave++;
-				refrescar_cursor_clave();
 			}
 			break;
 		
 		case 'D':
 
-			if (cursor_clave > tam_clave)
+			if (cursor_clave >= tam_clave)
 			{
 				copiar_arreglo(clave_ingresada, clave_actual, tam_clave);
 				copiar_arreglo(clave_mascara, clave_ingresada, tam_clave);
@@ -301,6 +300,7 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 8;
 	static char cursor_hora = 4;
+	static char valor_hora_alto;
 	
 	mostrarArriba(mascara_reloj_conjelada);
 	mostrarAbajo("    CERRADO    ");
@@ -308,15 +308,30 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
-			mascara_reloj_conjelada[cursor_hora] = tecla;
-			
 			if (cursor_hora == 4)
 			{
-				cursor_hora = 5;
+				if (tecla <= '2')
+				{
+					valor_hora_alto = tecla;
+					mascara_reloj_conjelada[cursor_hora] = tecla;
+					cursor_hora = 5;
+				}
 			}
 			else
 			{
-				cursor_hora = 4;
+				if (valor_hora_alto < '2')
+				{
+					mascara_reloj_conjelada[cursor_hora] = tecla;
+					cursor_hora = 4;
+				}
+				else
+				{
+					if (tecla <= '3')
+					{
+						mascara_reloj_conjelada[cursor_hora] = tecla;
+						cursor_hora = 4;
+					}
+				}
 			}
 			LCDGotoXY(cursor_hora,0);
 			break;
@@ -348,14 +363,18 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
-			mascara_reloj_conjelada[cursor_minutos] = tecla;
-			
+
 			if (cursor_minutos == 7)
 			{
-				cursor_minutos = 8;
+				if (tecla <= '5')
+				{
+					mascara_reloj_conjelada[cursor_minutos] = tecla;
+					cursor_minutos = 8;
+				}
 			}
 			else
 			{
+				mascara_reloj_conjelada[cursor_minutos] = tecla;
 				cursor_minutos = 7;
 			}
 			LCDGotoXY(cursor_minutos,0);
@@ -388,14 +407,18 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 	switch (tecla)
 	{
 		case '0','1','2','3','4','5','6','7','8','9':
-			mascara_reloj_conjelada[cursor_segundos] = tecla;
 		
 			if (cursor_segundos == 10)
 			{
-				cursor_segundos = 11;
+				if (tecla <= '5')
+				{
+					mascara_reloj_conjelada[cursor_segundos] = tecla;
+					cursor_segundos = 11;
+				}
 			}
 			else
 			{
+				mascara_reloj_conjelada[cursor_segundos] = tecla;
 				cursor_segundos = 10;
 			}
 			LCDGotoXY(cursor_segundos,0);
