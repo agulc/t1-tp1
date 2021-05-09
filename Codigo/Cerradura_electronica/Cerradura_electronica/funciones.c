@@ -4,10 +4,16 @@ Para mas información, ver la documentación del proyecto*/
 #include "controladorLCD.c"
 
 void refrescar_mascara_reloj(unsigned char *reloj);
+void set_temporizador(unsigned short intervalo_interrupcion);
+void refrescar_cursor_clave();
 unsigned char pantalla_principal(uint8_t tecla);
 unsigned char ingresar_clave_entrada(uint8_t tecla);
 unsigned char comparar_claves();
 
+unsigned short un_segundo = 10; //Suponer que 1int = 100ms
+unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
+unsigned short tres_segundos = 30; //Suponer que 1int = 100ms
+unsigned short contador_interrupciones = 0;
 uint8_t clave_mascara[] = {'x','x','x','x'} ;
 uint8_t clave_ingresada[] = clave_mascara ;
 uint8_t clave_nueva[] = clave_mascara ;
@@ -100,6 +106,22 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 	
 }
 
+unsigned char abierto()
+{
+	unsigned char proximo_estado = 3;
+
+	contador_interrupciones++;
+	mostrarArriba("               ");
+	mostrarAbajo("    ABIERTO    ");
+
+	if (contador_interrupciones > tres_segundos)
+	{
+		proximo_estado = 1;
+	}
+
+	return proximo_estado;
+	
+}
 
 unsigned char comparar_claves()
 {
@@ -150,4 +172,11 @@ void refrescar_cursor_clave()
 	default:
 		break;
 	}
+}
+
+void set_temporizador(unsigned short intervalo_interrupcion) //establece la cantidad de interrupciones necesarias para la config. deceada.
+{
+    un_segundo = (unsigned short) 1000/intervalo_interrupcion;
+    dos_segundos = (unsigned short) 2000/intervalo_interrupcion;
+	tres_segundos = (unsigned short) 3000/intervalo_interrupcion;
 }
