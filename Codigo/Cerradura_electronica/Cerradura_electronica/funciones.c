@@ -41,7 +41,7 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
 	switch (estado)
 	{
 		case 1:
-			estado = pantalla_principal(tecla,&reloj);
+			estado = pantalla_principal(tecla,reloj);
 			break;
 		case 2:
 			estado = ingresar_clave_entrada(tecla);
@@ -62,16 +62,16 @@ void mef_funciones(unsigned char *reloj, uint8_t tecla)//Analizar que devería r
 			estado = cambiar_clave_fin();
 			break;
 		case 8:
-			estado = modificar_hora(&reloj,tecla);
+			estado = modificar_hora(reloj,tecla);
 			break;
 		case 9:
-			estado = modificar_minutos(&reloj,tecla);
+			estado = modificar_minutos(reloj,tecla);
 			break;
 		case 10:
-			estado = modificar_segundos(&reloj,tecla);
+			estado = modificar_segundos(reloj,tecla);
 			break;
 		default:
-			estado = pantalla_principal(tecla,&reloj);
+			estado = pantalla_principal(tecla,reloj);
 			break;		
 	}
 }

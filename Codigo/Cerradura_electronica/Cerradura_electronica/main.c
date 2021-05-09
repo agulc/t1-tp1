@@ -15,7 +15,7 @@
 
 int main(void)
 {
-    unsigned char masc_hora[] = {0,0,0,0,0,0};
+    unsigned char masc_hora[] = {0,4,2,0,0,0};
     uint8_t tecla = 0;
     set_temporizador(100);
 	LCDinit();
@@ -24,8 +24,8 @@ int main(void)
     {
       MEF_reloj(masc_hora);
       tecla = 0;
-      KEYPAD_Update(&tecla);
+      //KEYPAD_Update(&tecla);
 	  mef_funciones(masc_hora,tecla);
-      _delay_ms(10);  
+     // _delay_ms(10);  
     }
 }
