@@ -23,8 +23,8 @@ int main(void)
     unsigned char masc_hora[] = {0,4,2,0,0,0};
     uint8_t tecla = 0;
 	uint8_t hola = 0;
-    set_temporizador(125);
-	set_temporizador_funciones(125);
+    set_temporizador(100);
+	set_temporizador_funciones(100);
 	LCDinit();
 	/*se configura las interrupciones por temporizador*/
 	OCR0A = 250;
@@ -41,14 +41,12 @@ int main(void)
 		tecla = 0;
 		KEYPAD_Update(&tecla);
 		mef_funciones(masc_hora,tecla);
-		while(!flag){
-		
-		}
+		while(!flag);
     }
 }
 ISR(TIMER0_COMPA_vect){
 	contador++;
-	if(contador == 62)
+	if(contador == 50)
 	{
 		flag = 1;
 		contador = 0;
