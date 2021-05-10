@@ -35,6 +35,7 @@ uint8_t clave_ingresada[] = {'x','x','x','x'} ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
 uint8_t mascara_reloj[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
 uint8_t mascara_reloj_conjelada[] = {' ',' ',' ',' ','h','h',':','m','m',':','s','s',' ',' ',' ',' '};
+unsigned char reloj_conjelado[] = {0,0,0,0,0,0};
 
 char cursor_clave = 0;
 char tam_clave = (char) sizeof(clave_mascara)/sizeof(clave_mascara[0]);
@@ -109,6 +110,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'A':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
 			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(4,0);
@@ -119,6 +121,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'B':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
 			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(7,0);
@@ -128,6 +131,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 		
 		case 'C':
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
+			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
 			mostrarAbajo("    CERRADO    ");
 			LCDGotoXY(10,0);
@@ -374,8 +378,13 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 		
 		case 'A':
 			modificar_reloj(reloj);
+			cursor_hora = 4;
+			LCDcursorOFF();
+			proximo_estado = 1;
+			break;
 		
 		case '#':
+			copiar_arreglo(reloj_conjelado, reloj, 6);
 			cursor_hora = 4;
 			LCDcursorOFF();
 			proximo_estado = 1;
@@ -424,8 +433,13 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 		
 		case 'B':
 			modificar_reloj(reloj);
+			cursor_minutos = 7;
+			LCDcursorOFF();
+			proximo_estado = 1;
+			break;
 		
 		case '#':
+			copiar_arreglo(reloj_conjelado, reloj, 6);
 			cursor_minutos = 7;
 			LCDcursorOFF();
 			proximo_estado = 1;
@@ -474,8 +488,13 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 		
 		case 'C':
 			modificar_reloj(reloj);
+			cursor_hora = 4;
+			LCDcursorOFF();
+			proximo_estado = 1;
+			break;
 		
 		case '#':
+			copiar_arreglo(reloj_conjelado, reloj, 6);
 			cursor_segundos = 10;
 			LCDcursorOFF();
 			proximo_estado = 1;
