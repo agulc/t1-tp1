@@ -25,6 +25,10 @@ void set_temporizador(unsigned short intervalo_interrupcion);
 unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
 unsigned short tres_segundos = 30; //Suponer que 1int = 100ms
 unsigned short contador_interrupciones = 0;
+char cursor_hora = 4;
+char valor_hora_alto;
+char cursor_minutos = 7;
+char cursor_segundos = 10;
 uint8_t clave_mascara[] = {'x','x','x','x'} ;
 uint8_t clave_ingresada[] = {'x','x','x','x'} ;
 uint8_t clave_actual[] = {'0','8','5','2'} ;
@@ -345,10 +349,6 @@ unsigned char cambiar_clave_fin()
 unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 8;
-	static char cursor_hora = 4;
-	static char valor_hora_alto;
-	
-	
 	
 	switch (tecla)
 	{
@@ -410,7 +410,6 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 9;
-	static char cursor_minutos = 7;
 	
 	switch (tecla)
 	{
@@ -442,7 +441,7 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 			LCDGotoXY(cursor_minutos,0);
 			break;
 		
-		case 'A':
+		case 'B':
 			modificar_reloj(reloj);
 		
 		case '#':
@@ -461,7 +460,6 @@ unsigned char modificar_minutos(unsigned char *reloj, uint8_t tecla)
 unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 {
 	unsigned char proximo_estado = 10;
-	static char cursor_segundos = 10;
 	
 	switch (tecla)
 	{
@@ -493,7 +491,7 @@ unsigned char modificar_segundos(unsigned char *reloj, uint8_t tecla)
 			LCDGotoXY(cursor_segundos,0);
 			break;
 		
-		case 'A':
+		case 'C':
 			modificar_reloj(reloj);
 		
 		case '#':
