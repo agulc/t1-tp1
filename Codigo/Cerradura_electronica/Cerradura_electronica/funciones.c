@@ -112,7 +112,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
 			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
-			mostrarAbajo("    CERRADO    ");
+			mostrarAbajo("    CERRADO     ");
 			LCDGotoXY(4,0);
 			LCDcursorOnBlink();
 			proximo_estado = 8; //Modificar hora
@@ -123,7 +123,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
 			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
-			mostrarAbajo("    CERRADO    ");
+			mostrarAbajo("    CERRADO     ");
 			LCDGotoXY(7,0);
 			LCDcursorOnBlink();
 			proximo_estado = 9; //Modificar minutos
@@ -133,7 +133,7 @@ unsigned char pantalla_principal(uint8_t tecla, unsigned char *reloj)
 			copiar_arreglo(mascara_reloj, mascara_reloj_conjelada, 16);
 			copiar_arreglo(reloj,reloj_conjelado,6);
 			mostrarArriba(mascara_reloj_conjelada);
-			mostrarAbajo("    CERRADO    ");
+			mostrarAbajo("    CERRADO     ");
 			LCDGotoXY(10,0);
 			LCDcursorOnBlink();
 			proximo_estado = 10; //Modificar segundos
@@ -156,7 +156,7 @@ unsigned char ingresar_clave_entrada(uint8_t tecla)
 	unsigned char proximo_estado = 2;
 
 	//seteo lo que se tenga que mostrar en el display
-	mostrarArriba("Ingresar clave ");
+	mostrarArriba("Ingresar clave  ");
 	refrescar_cursor_clave();
 
 	switch (tecla)
@@ -200,8 +200,8 @@ unsigned char abierto()
 	unsigned char proximo_estado = 3;
 
 	contador_interrupciones++;
-	mostrarArriba("               ");
-	mostrarAbajo("    ABIERTO    ");
+	mostrarArriba("                ");
+	mostrarAbajo("    ABIERTO     ");
 
 	if (contador_interrupciones > tres_segundos)
 	{
@@ -218,8 +218,8 @@ unsigned char denegado()
 	unsigned char proximo_estado = 4;
 
 	contador_interrupciones++;
-	mostrarArriba("               ");
-	mostrarAbajo("    DENEGADO   ");
+	mostrarArriba("                ");
+	mostrarAbajo("    DENEGADO    ");
 
 	if (contador_interrupciones > dos_segundos)
 	{
@@ -236,7 +236,7 @@ unsigned char cambiar_clave_clave_actual(uint8_t tecla)
 	unsigned char proximo_estado = 5;
 
 	//seteo lo que se tenga que mostrar en el display
-	mostrarArriba("Clave actual   ");
+	mostrarArriba("Clave actual    ");
 	refrescar_cursor_clave();
 	
 	switch (tecla)
@@ -286,7 +286,7 @@ unsigned char cambiar_clave_nueva_clave(uint8_t tecla)
 	unsigned char proximo_estado = 6;
 
 	//seteo lo que se tenga que mostrar en el display
-	mostrarArriba("Clave Nueva    ");
+	mostrarArriba("Clave Nueva     ");
 	refrescar_cursor_clave();
 
 	switch (tecla)
@@ -338,8 +338,8 @@ unsigned char cambiar_clave_fin()
 	unsigned char proximo_estado = 7;
 
 	contador_interrupciones++;
-	mostrarArriba("  Fin ingreso  ");
-	mostrarAbajo("  nueva clave  ");
+	mostrarArriba("  Fin ingreso   ");
+	mostrarAbajo("  nueva clave   ");
 
 	if (contador_interrupciones > tres_segundos)
 	{
