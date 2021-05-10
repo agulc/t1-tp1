@@ -20,6 +20,7 @@ void refrescar_mascara_reloj(unsigned char *reloj);
 void set_temporizador(unsigned short intervalo_interrupcion);
 void refrescar_cursor_clave();
 void set_temporizador(unsigned short intervalo_interrupcion);
+char validar_reloj(unsigned char *reloj);
 
 
 unsigned short dos_segundos = 20; //Suponer que 1int = 100ms
@@ -362,31 +363,11 @@ unsigned char modificar_hora(unsigned char *reloj, uint8_t tecla)
 		case '7':
 		case '8':
 		case '9':
+			mascara_reloj_conjelada[cursor_hora] = tecla;
 			if (cursor_hora == 4)
-			{
-				if (tecla <= '2')
-				{
-					valor_hora_alto = tecla;
-					mascara_reloj_conjelada[cursor_hora] = tecla;
-					cursor_hora = 5;
-				}
-			}
+				cursor_hora = 5;
 			else
-			{
-				if (valor_hora_alto < '2')
-				{
-					mascara_reloj_conjelada[cursor_hora] = tecla;
-					cursor_hora = 4;
-				}
-				else
-				{
-					if (tecla <= '3')
-					{
-						mascara_reloj_conjelada[cursor_hora] = tecla;
-						cursor_hora = 4;
-					}
-				}
-			}
+				cursor_hora = 4;
 			mostrarArriba(mascara_reloj_conjelada);
 			LCDGotoXY(cursor_hora,0);
 			break;
@@ -539,12 +520,17 @@ void refrescar_mascara_reloj(unsigned char *reloj)
 
 void modificar_reloj(unsigned char *reloj)
 {
-	reloj[0] = mascara_reloj_conjelada[4] - '0';
-	reloj[1] = mascara_reloj_conjelada[5] - '0';
-	reloj[2] = mascara_reloj_conjelada[7] - '0';
-	reloj[3] = mascara_reloj_conjelada[8] - '0';
-	reloj[4] = mascara_reloj_conjelada[10] - '0';
-	reloj[5] = mascara_reloj_conjelada[11] - '0';
+	unsigned char pre_reloj[] = {0,0,0,0,0,0};
+		
+	pre_reloj[0] = mascara_reloj_conjelada[4] - '0';
+	pre_reloj[1] = mascara_reloj_conjelada[5] - '0';
+	pre_reloj[2] = mascara_reloj_conjelada[7] - '0';
+	pre_reloj[3] = mascara_reloj_conjelada[8] - '0';
+	pre_reloj[4] = mascara_reloj_conjelada[10] - '0';
+	pre_reloj[5] = mascara_reloj_conjelada[11] - '0';
+	
+	if (validar_reloj(pre_reloj))
+		copiar_arreglo(pre_reloj,reloj,6);
 }
 
 void refrescar_cursor_clave()
@@ -590,4 +576,51 @@ void set_temporizador_funciones(unsigned short intervalo_interrupcion) //estable
 {
     dos_segundos = (unsigned short) 2000/intervalo_interrupcion;
 	tres_segundos = (unsigned short) 3000/intervalo_interrupcion;
+}
+
+char validar_reloj(unsigned char *reloj)
+{
+	char valido = 1;
+	if (reloj[0] == 2 )
+	{
+		if (reloj[1] > 3)
+		{
+			valido = 0;
+			return valido;
+		}
+	}
+	if (reloj[0] > 2)
+	{			
+		valido = 0;
+		return valido;
+	}
+	
+	if (reloj[2] == 5)
+	{
+		if (reloj[3] > 5)
+		{
+			valido = 0;
+			return valido;
+		}
+	}
+	if (reloj[2] > 5)
+	{
+		valido = 0;
+		return valido;
+	}
+	
+	if (reloj[4] == 5)
+	{
+		if (reloj[5] > 5)
+		{
+			valido = 0;
+			return valido;
+		}
+	}
+	if (reloj[4] > 5)
+	{
+		valido = 0;
+		return valido;
+	}
+	return valido;
 }
