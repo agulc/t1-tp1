@@ -24,17 +24,17 @@ void LCDsendChar(uint8_t ch)		//Sends Char to LCD
 	LDP=(ch&0b11110000);
 	LCP|=1<<LCD_RS;
 	LCP|=1<<LCD_E;		
-	_delay_us(40);
+	_delay_us(30);
 	LCP&=~(1<<LCD_E);	
 	LCP&=~(1<<LCD_RS);
-	_delay_us(40);
+	_delay_us(30);
 	LDP=((ch&0b00001111)<<4);
 	LCP|=1<<LCD_RS;
 	LCP|=1<<LCD_E;		
-	_delay_us(40);
+	_delay_us(30);
 	LCP&=~(1<<LCD_E);	
 	LCP&=~(1<<LCD_RS);
-	_delay_us(40);
+	_delay_us(30);
 #else
 	//8 bit part
 	LDP=ch;
