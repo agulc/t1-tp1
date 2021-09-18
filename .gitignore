@@ -1,2 +1,6 @@
-Simulacion/cerradura_electronica.pdsprj.LAPTOP-5JC4BQLQ.UNLP.workspace
-Codigo/Cerradura_electronica/.vs/Cerradura_electronica/v14/.atsuo
+Simulacion/cerradura_electronica.pdsprj.*
+Simulacion/Backup*
+Simulacion/Last*
+Simulacion/STM32f103C6/Debug/
+Simulacion\STM32F103C6\Debug\
+
