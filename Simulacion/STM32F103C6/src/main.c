@@ -6,6 +6,9 @@
  */
 
 #include <stm32f103x6.h>
+#include <sysinit.h>
+#include <keypad.h>
+
 
 void delay_app(uint16_t time);
 
@@ -13,17 +16,28 @@ void delay_app(uint16_t time)
 {
 	volatile unsigned long l = 0;
 	uint16_t i;
-	for (i = 0; i < time; i++);
-	for (l; l < 6000; l++);
+	for (i = 0; i < time; i++)
+	{
+		for (l; l < 6000; l++);
+	}
 }
+
+uint8_t lastkey = 0;
 
 int main (void)
 {
-	RCC -> APB2ENR |= 0xfc;
-	GPIOC -> CRH = 0x44344444;
+   	uint8_t key;
+	 key = 0;
+	gpio_init();
+	keypad_init();
+
+
 	while(1)
 	{
-		GPIOC -> ODR ^= (1<<13);
-		delay_app(10);
+		if (keypad_update(&key))
+		{
+			lastkey = key;
+		}
+		delay_app(100);
 	}
 }
