@@ -12,10 +12,3 @@ void gpio_init(void)
     RCC -> APB2ENR |= 0xFC;
 }
 
-void keypad_init(void)
-{
-    //initialices kepad in port A with pull-up resistors.
-    GPIOB -> CRH = 0x33338888;
-    GPIOB -> ODR |= 0xFF00;
-}
-

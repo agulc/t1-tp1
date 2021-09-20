@@ -2,10 +2,18 @@
 #include <keypad.h>
 
 //4x4 keypad controller
+void keypad_init(void);
 uint8_t keypad_update (uint8_t *pkey);
 uint8_t keypad_scan (uint8_t *pkey);
 uint16_t keypad_get_imput (void);
 uint8_t keypad_reference (uint8_t reading);
+
+void keypad_init(void)
+{
+    //initialices kepad in port A with pull-up resistors.
+    GPIOB -> CRH = 0x33338888;
+    GPIOB -> ODR |= 0xFF00;
+}
 
 uint8_t keypad_update (uint8_t *pkey)
 {
