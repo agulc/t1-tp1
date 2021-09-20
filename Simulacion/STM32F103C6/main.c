@@ -47,7 +47,7 @@ int main (void)
 		if (keypad_update(&key))
 		{
 			lastkey = key;
-			lcd_send_cmd(0x01);/* clear LCD */
+			lcd_send_cmd(0x02);/* clear LCD */
 			delay_us(2000);
 			lcd_send_data(lastkey);
 		}
