@@ -11,19 +11,6 @@
 #include <lcd.h>
 #include <delay.h>
 
-
-void delay_app(uint16_t time);
-
-void delay_app(uint16_t time)
-{
-	volatile unsigned long l = 0;
-	uint16_t i;
-	for (i = 0; i < time; i++)
-	{
-		for (l; l < 6000; l++);
-	}
-}
-
 uint8_t lastkey = 0;
 
 int main (void)
@@ -43,9 +30,9 @@ int main (void)
 		if (keypad_update(&key))
 		{
 			lastkey = key;
-			lcd_send_cmd(0x02);/* clear LCD */
-			delay_us(2000);
-			lcd_send_data(lastkey);
+			lcd_load_buffer_high("     Fellas     ");
+			lcd_load_buffer_low("                ");
+			lcd_refresh();
 		}
 		delay_ms(100);
 	}
