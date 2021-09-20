@@ -15,7 +15,7 @@ void gpio_init(void)
 void keypad_init(void)
 {
     //initialices kepad in port A with pull-up resistors.
-    GPIOB -> CRL = 0x88888888;
-    GPIOB -> ODR |= 0xFF;
+    GPIOB -> CRH = 0x33338888;
+    GPIOB -> ODR |= 0xFF00;
 }
 
