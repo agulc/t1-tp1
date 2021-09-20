@@ -34,13 +34,9 @@ int main (void)
 	keypad_init();
 	lcd_init();
    
-	 lcd_send_data('H');
-	 lcd_send_data('e');
-	 lcd_send_data('l');
-	 lcd_send_data('l');
-	 lcd_send_data('o');
-   
-
+	lcd_load_buffer_high("Hello");
+	lcd_load_buffer_low("There!");
+	lcd_refresh();
 
 	while(1)
 	{
