@@ -6,7 +6,6 @@ uint8_t keypad_update (uint8_t *pkey);
 uint8_t keypad_scan (uint8_t *pkey);
 uint16_t keypad_get_imput (void);
 uint8_t keypad_reference (uint8_t reading);
-uint8_t reading = 0;
 
 uint8_t keypad_update (uint8_t *pkey)
 {
