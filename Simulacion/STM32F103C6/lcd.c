@@ -31,14 +31,12 @@ void lcd_send_cmd(uint8_t cmd)
 {
     GPIOB->BRR = (1 << LCD_RS); /* RS = 0 forcommand*/
     lcd_put_value(cmd);
-    delay_us(5000); /* wait 3ms */
 }
 
 void lcd_send_data(uint8_t data)
 {
     GPIOB->BSRR = (1 << LCD_RS); /* RS = 1 fordata */
     lcd_put_value(data);
-    delay_us(5000); /* wait 3ms */
 }
 
 void lcd_put_value(char value)
@@ -48,5 +46,5 @@ void lcd_put_value(char value)
     GPIOB->BSRR = (1<<LCD_EN);/* EN = 1 forH-to-L pulse */
     delay_us(2);/* makeEN pulse wider*/
     GPIOB->BRR = (1<<LCD_EN); /* EN = 0 forH-to-L pulse */
-    delay_us(100);/* wait*/
+    delay_us(8000);/* wait*/
 }

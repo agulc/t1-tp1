@@ -9,6 +9,7 @@
 #include <sysinit.h>
 #include <keypad.h>
 #include <lcd.h>
+#include <delay.h>
 
 
 void delay_app(uint16_t time);
@@ -46,8 +47,10 @@ int main (void)
 		if (keypad_update(&key))
 		{
 			lastkey = key;
+			lcd_send_cmd(0x01);/* clear LCD */
+			delay_us(2000);
 			lcd_send_data(lastkey);
 		}
-		delay_app(100);
+		delay_ms(100);
 	}
 }
