@@ -8,6 +8,7 @@
 #include <stm32f103x6.h>
 #include <sysinit.h>
 #include <keypad.h>
+#include <lcd.h>
 
 
 void delay_app(uint16_t time);
@@ -30,6 +31,14 @@ int main (void)
 	 key = 0;
 	gpio_init();
 	keypad_init();
+	lcd_init();
+   
+	 lcd_send_data('H');
+	 lcd_send_data('e');
+	 lcd_send_data('l');
+	 lcd_send_data('l');
+	 lcd_send_data('o');
+   
 
 
 	while(1)
@@ -37,6 +46,7 @@ int main (void)
 		if (keypad_update(&key))
 		{
 			lastkey = key;
+			lcd_send_data(lastkey);
 		}
 		delay_app(100);
 	}
