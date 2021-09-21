@@ -4,4 +4,4 @@
 #include <string.h>
 
 void mef_functions(uint8_t key);
-
+void mef_init(void);

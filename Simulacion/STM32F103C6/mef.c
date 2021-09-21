@@ -16,6 +16,7 @@ uint8_t mef_denied(void);
 void mef_refresh_password_cursor(void);
 void mef_refresh_password_cursorvoid(void);
 uint8_t mef_check_password(void);
+void mef_init(void);
 
 void mef_functions(uint8_t key)
 {
@@ -117,11 +118,14 @@ uint8_t mef_open(void)
     tick_counter++;
     lcd_load_buffer_high("               ", 16);
     lcd_load_buffer_low("    Abierto    ", 16);
+
+    GPIOA -> ODR |= (1 << 11);
     
     if (tick_counter > 10)
     {
         next_state = 1;
         tick_counter = 0;
+        GPIOA -> ODR &= ~(1 << 11);
     }
 
     return next_state;
@@ -190,4 +194,9 @@ uint8_t mef_check_password(void)
     }
 
     return result;
+}
+
+void mef_init(void)
+{
+    GPIOA -> CRH = 0x44443444;
 }

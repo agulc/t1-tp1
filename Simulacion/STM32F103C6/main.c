@@ -11,6 +11,7 @@
 #include <lcd.h>
 #include <delay.h>
 #include <seos.h>
+#include <mef.h>
 
 void SysTick_Handler(void) 
 {
@@ -20,6 +21,7 @@ void SysTick_Handler(void)
 int main (void)
 {
 	gpio_init();
+	mef_init();
 	keypad_init();
 	lcd_init();
 	SysTick_Config(SystemCoreClock / 1000);
