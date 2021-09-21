@@ -44,6 +44,11 @@ void seos_dispatch_tasks(void)
             lcd_load_buffer_low("                ", 16);
         }
     }
+    if (flag_clock)
+    {
+        clock_tick();
+        flag_clock = 0;
+    }
     if (flag_lcd)
     {
         clock_read(clock_mask);
@@ -53,10 +58,5 @@ void seos_dispatch_tasks(void)
         lcd_send_data(key);
         keyPressed = 0;
         flag_lcd = 0;
-    }
-    if (flag_clock)
-    {
-        clock_tick();
-        flag_clock = 0;
     }
 }
