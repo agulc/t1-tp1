@@ -26,6 +26,7 @@ int main (void)
 	lcd_load_buffer_high("Hello", 5);
 	lcd_load_buffer_low("There!", 6);
 	lcd_refresh();
+	lcd_go_to_xy(0, 1);
 	SysTick_Config(SystemCoreClock / 1000);
 
 	while(1)
