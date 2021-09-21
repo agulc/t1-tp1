@@ -17,22 +17,22 @@ void seos_dispatch_tasks(void);
 
 void seos_schedule_tasks(void)
 {
-    if (++cont_mef >= 5)
+    if (++cont_mef >= 50)
     {
         flag_mef = 1;
         cont_mef = 0;
     }
-    if (++cont_keypad >= 6)
+    if (++cont_keypad >= 60)
     {
         flag_keypad = 1;
         cont_keypad = 0;
     }
-    if (++cont_lcd >= 20)
+    if (++cont_lcd >= 200)
     {
         flag_lcd = 1;
         cont_lcd = 0;
     }
-    if (++cont_clock >= 100)
+    if (++cont_clock >= 1000)
     {
         flag_clock = 1;
         cont_clock = 0;
