@@ -1,0 +1,18 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLUseCase</id><coordinates><x>118</x><y>350</y><w>120</w><h>120</h></coordinates><panel_attributes>1
+Pantalla Principal</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>398</x><y>350</y><w>120</w><h>120</h></coordinates><panel_attributes>2
+Ingresar clave
+entrada</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>628</x><y>150</y><w>120</w><h>120</h></coordinates><panel_attributes>4
+Denegado</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>618</x><y>560</y><w>120</w><h>120</h></coordinates><panel_attributes>3
+Abierto</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>228</x><y>390</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=-&gt;
+se preciona una tecla</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>488</x><y>240</y><w>180</w><h>140</h></coordinates><panel_attributes>lt=-&gt;
+clave
+incorrecta</panel_attributes><additional_attributes>10;120;40;60;130;60;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>488</x><y>450</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=-&gt;
+clave
+correcta</panel_attributes><additional_attributes>10;10;40;80;110;80;140;130</additional_attributes></element><element><id>Relation</id><coordinates><x>498</x><y>380</y><w>210</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+se espera otra tecla</panel_attributes><additional_attributes>10;60;90;60;90;10;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>728</x><y>180</y><w>230</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+se muestra el mensaje</panel_attributes><additional_attributes>10;60;90;60;90;10;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>718</x><y>590</y><w>230</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+se muestra el mensaje</panel_attributes><additional_attributes>10;60;90;60;90;10;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>18</x><y>380</y><w>130</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+se espera tecla
+</panel_attributes><additional_attributes>110;60;10;60;10;10;100;10</additional_attributes></element><element><id>Relation</id><coordinates><x>178</x><y>460</y><w>460</w><h>180</h></coordinates><panel_attributes>lt=&lt;-
+se acabó tiempo mensaje</panel_attributes><additional_attributes>10;10;130;110;280;110;440;160</additional_attributes></element><element><id>Relation</id><coordinates><x>178</x><y>200</y><w>470</w><h>170</h></coordinates><panel_attributes>lt=&lt;-
+se acabó tiempo mensaje</panel_attributes><additional_attributes>10;150;130;70;300;70;450;10</additional_attributes></element></diagram>
