@@ -44,7 +44,7 @@ uint8_t mef_main_menu(uint8_t key)
     uint8_t next_state = 1;
     clock_read(clock_mask);
     lcd_load_buffer_high(clock_mask, strlen(clock_mask));
-    lcd_load_buffer_low("    Cerrado    ", strlen("    Cerrado    "));
+    lcd_load_buffer_low("    Cerrado    ", 16);
 
     switch (key)
     {
@@ -73,7 +73,7 @@ uint8_t mef_main_menu(uint8_t key)
 uint8_t mef_input_password(uint8_t key)
 {
     uint8_t next_state = 2;
-    lcd_load_buffer_high("Ingrese clave: ", strlen("Ingrese clave: "));
+    lcd_load_buffer_high("Ingrese clave: ", 16);
     mef_refresh_password_cursor();
 
     switch (key)
@@ -115,8 +115,8 @@ uint8_t mef_open(void)
     uint8_t next_state = 3;
 
     tick_counter++;
-    lcd_load_buffer_high("               ", strlen("               "));
-    lcd_load_buffer_low("    Abierto    ", strlen("    Abierto    "));
+    lcd_load_buffer_high("               ", 16);
+    lcd_load_buffer_low("    Abierto    ", 16);
     
     if (tick_counter > 10)
     {
@@ -133,8 +133,8 @@ uint8_t mef_denied(void)
     uint8_t next_state = 4;
 
     tick_counter++;
-    lcd_load_buffer_high("               ", strlen("               "));
-    lcd_load_buffer_low("   DENEGADO    ", strlen("   DENEGADO    "));
+    lcd_load_buffer_high("               ", 16);
+    lcd_load_buffer_low("   DENEGADO    ", 16);
     
     if (tick_counter > 4)
     {
@@ -151,27 +151,27 @@ void mef_refresh_password_cursor(void)
     switch (password_cursor)
 	{
 	case 0:
-	    lcd_load_buffer_low("                ", strlen("                "));
+	    lcd_load_buffer_low("                ", 16);
 		break;
 	
 	case 1:
-	    lcd_load_buffer_low("      *         ", strlen("      *         "));
+	    lcd_load_buffer_low("      *         ", 16);
 		break;
 	
 	case 2:
-	    lcd_load_buffer_low("      **        ", strlen("      **        "));
+	    lcd_load_buffer_low("      **        ", 16);
 		break;
 	
 	case 3:
-	    lcd_load_buffer_low("      ***       ", strlen("      ***       "));
+	    lcd_load_buffer_low("      ***       ", 16);
 		break;
 	
 	case 4:
-	    lcd_load_buffer_low("      ****      ", strlen("      ****      "));
+	    lcd_load_buffer_low("      ****      ", 16);
 		break;
 	
 	default:
-	    lcd_load_buffer_low("      OOB       ", strlen("      OOB       "));
+	    lcd_load_buffer_low("      OOB       ", 16);
 		break;
 	}
 }

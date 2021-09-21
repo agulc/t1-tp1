@@ -50,7 +50,7 @@ void seos_dispatch_tasks(void)
     }
     if (flag_keypad)
     {
-       if( keypad_update(&key)) 
+        keypad_update(&key);
         flag_keypad = 0;
     }
     if (flag_clock)
