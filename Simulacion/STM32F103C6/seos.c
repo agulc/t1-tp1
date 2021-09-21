@@ -4,9 +4,9 @@ volatile unsigned char flag_lcd = 0;
 volatile unsigned char flag_keypad = 0;
 volatile unsigned char flag_clock = 0;
 
-static uint8_t cont_lcd = 49;
+static uint8_t cont_lcd = 199;
 static uint8_t cont_keypad = 49;
-static uint16_t cont_clock = 99;
+static uint16_t cont_clock = 999;
 
 volatile unsigned char keyPressed = 0;
 static uint8_t key;
@@ -22,7 +22,7 @@ void seos_schedule_tasks(void)
         flag_lcd = 1;
         cont_lcd = 0;
     }
-    if (++cont_keypad == 50)
+    if (++cont_keypad >= 50)
     {
         flag_keypad = 1;
         cont_keypad = 0;
