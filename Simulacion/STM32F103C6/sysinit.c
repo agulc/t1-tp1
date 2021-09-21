@@ -4,7 +4,6 @@ This module contains functions to initialize different system components.
 #include <sysinit.h>
 
 void gpio_init(void);
-void keypad_init(void);
 
 void gpio_init(void)
 {
