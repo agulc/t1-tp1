@@ -1,24 +1,8 @@
-# CDyM-TE2
-Trabajo entregable 2 CDyM
+# Taller de Proyecto 1
+## _Trabajo Practico 1 - Desarrollo de Cerradura Electronica_
 
-Desarrollo de cerradura electronica
-MEF == Maquina de estados Finitos
+Implementación de una cerradura electronica utilizando como base el microcontrolador STM32F103C6.
 
-Diagrama CDU:
-  NOTA: Es necesario tener UMLet instalado. Es recomendable el uso de la extension para VSCode (https://marketplace.visualstudio.com/items?itemName=TheUMLetTeam.umlet).
-  
-  El mismo muestra la interacción del usuario y el tiemo con el sistema.
-  
-Diagrama MEF:
-  NOTA: Es necesario tener UMLet instalado. Es recomendable el uso de la extension para VSCode (https://marketplace.visualstudio.com/items?itemName=TheUMLetTeam.umlet).
-  
-  Muestra los estados y la reacción a estimulos de la MEF inplementada para las funcionalidades del sistema.
-  
+  - compatible con STM32F103C8.
 
-Consideraciónes de diseño:
-  -¿Una o varias MEF?
-      Es posible que sea conveniente tener dos maquinas de estado separadas. Una que maneje el reloj y otra que controle todo lo demas.
-
-  -Lectura del teclado
-      podría realizarse una lectura programada cada cierta cantidad de tiempo en una MEF separada, o solo incluir la funcionalidad dentro de 
-      la MEF encargada de las funcionalidades
+![alt text](https://github.com/alcaolpg/t1-tp1/blob/main/Documentacion/Imagenes/imagenmd.jpg?raw=true)
