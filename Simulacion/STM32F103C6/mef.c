@@ -171,7 +171,7 @@ void mef_refresh_password_cursor(void)
 		break;
 	
 	default:
-	    lcd_load_buffer_low("      OOB       ", 16);
+	    lcd_load_buffer_low("      POF       ", 16);
 		break;
 	}
 }
