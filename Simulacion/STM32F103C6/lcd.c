@@ -15,8 +15,8 @@ void lcd_put_value(char val);
 void lcd_put_string(char *str, uint8_t len);
 void lcd_send_cmd(uint8_t cmd);
 void lcd_send_data(uint8_t data);
-void lcd_load_buffer_high(char *str);
-void lcd_load_buffer_low(char *str);
+void lcd_load_buffer_high(char *str, uint8_t len);
+void lcd_load_buffer_low(char *str, uint8_t len);
 void lcd_refresh(void);
 
 void lcd_init(void)
@@ -91,14 +91,14 @@ void lcd_put_string(char *str, uint8_t len)
     }
 }
 
-void lcd_load_buffer_high(char *str)
+void lcd_load_buffer_high(char *str, uint8_t len)
 {
-    strncpy(lcd_buffer_high, str, 16);
+    strncpy(lcd_buffer_high, str, len);
 }
 
-void lcd_load_buffer_low(char *str)
+void lcd_load_buffer_low(char *str, uint8_t len)
 {
-    strncpy(lcd_buffer_low, str, 16);
+    strncpy(lcd_buffer_low, str, len);
 }
 
 void lcd_refresh(void)
