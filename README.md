@@ -21,3 +21,9 @@ Los requerimientos del sistema son:
   - Cuando se presione un tecla numérica se deberá mostrar ‘*’. para indicar que el sistema está recibiendo las entradas. El resto de las teclas no tienen ninguna función.
 
   - La implementación deberá hacerse aplicando la arquitectura de planificador despachador temporizada con un tick de sistema (sEOS) y desarrollando bibliotecas de funciones básicas para utilizar el LCD y el teclado.
+
+## Consideraciones
+
+Se recomienda compilar el programa entero desde Proteus 8 utilizando el compilador de Keil, el cual se puede descargar desde [la pagina oficial de Keil](https://www.keil.com/download/product/)
+
+Si nunca se ha configurado a proteus para ello, posiblemente sea necesario indicarle donde se encuentra el compilador. Para ello, lo mas facil será luego de instalar Keil, ir a la pestaña de codigo fuente (Source Code), luego seleccionar "System" en la barra superior, "Compilers Configuration", presionar "Check All" y una vez terminado, "OK".
