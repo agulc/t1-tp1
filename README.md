@@ -19,3 +19,5 @@ Los requerimientos del sistema son:
   - Si la clave es incorrecta se mostrará el estado “DENEGADO” durante 0.2 seg y luego volverá automáticamente al estado por defecto.
   
   - Cuando se presione un tecla numérica se deberá mostrar ‘*’. para indicar que el sistema está recibiendo las entradas. El resto de las teclas no tienen ninguna función.
+
+  - La implementación deberá hacerse aplicando la arquitectura de planificador despachador temporizada con un tick de sistema (sEOS) y desarrollando bibliotecas de funciones básicas para utilizar el LCD y el teclado.
